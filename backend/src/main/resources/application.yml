@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  datasource: 
+    url: jdbc:mysql://localhost:3306/teacherhub?useSSL=false&serverTimezone=UTC
+    username: root 
+    password: 
+
+application:
+  jwt:
+    SECRET_KEY: FC120BB229E9EC3D04138A46DD1A65FB32EB3A13BDDF90CE88BA62230602BFEC
