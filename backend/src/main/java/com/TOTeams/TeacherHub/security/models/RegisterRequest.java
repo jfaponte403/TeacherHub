@@ -1,4 +1,6 @@
-package com.TOTeams.TeacherHub.Auth.Models;
+package com.TOTeams.TeacherHub.security.models;
+
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
+public class RegisterRequest {  
+  UUID id;
+  String nickname;  
   String email;
   String password;
 }

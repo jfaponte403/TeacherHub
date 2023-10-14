@@ -1,4 +1,4 @@
-package com.TOTeams.TeacherHub.Api;
+package com.TOTeams.TeacherHub.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

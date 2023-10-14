@@ -1,4 +1,4 @@
-package com.TOTeams.TeacherHub.Util;
+package com.TOTeams.TeacherHub.util;
 
 import java.util.HashMap;
 import java.util.Map;

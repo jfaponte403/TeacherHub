@@ -1,4 +1,4 @@
-package com.TOTeams.TeacherHub.Jwt;
+package com.TOTeams.TeacherHub.security.jwt;
 
 import java.security.Key;
 import java.util.Date;
@@ -22,6 +22,9 @@ public class JwtService {
   @Value("${application.jwt.SECRET_KEY}")
   private String SECRET_KEY;
 
+  /*
+   * 
+   */
   public String getToken(UserDetails user) {
     return getToken(new HashMap<>(), user);
   }

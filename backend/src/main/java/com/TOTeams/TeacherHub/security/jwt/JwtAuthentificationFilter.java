@@ -1,4 +1,4 @@
-package com.TOTeams.TeacherHub.Jwt;
+package com.TOTeams.TeacherHub.security.jwt;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package com.TOTeams.TeacherHub.Config;
+package com.TOTeams.TeacherHub.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.TOTeams.TeacherHub.User.UserRespository;
+import com.TOTeams.TeacherHub.repositories.UserRespository;
 
 import lombok.RequiredArgsConstructor;
 

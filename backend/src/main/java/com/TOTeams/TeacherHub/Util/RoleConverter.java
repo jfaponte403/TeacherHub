@@ -1,4 +1,6 @@
-package com.TOTeams.TeacherHub.User;
+package com.TOTeams.TeacherHub.util;
+
+import com.TOTeams.TeacherHub.models.Role;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

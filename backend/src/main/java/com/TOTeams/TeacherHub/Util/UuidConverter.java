@@ -1,4 +1,4 @@
-package com.TOTeams.TeacherHub.Util;
+package com.TOTeams.TeacherHub.util;
 
 import java.nio.ByteBuffer;
 import java.util.UUID;

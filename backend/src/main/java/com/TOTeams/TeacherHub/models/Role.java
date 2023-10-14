@@ -1,4 +1,4 @@
-package com.TOTeams.TeacherHub.User;
+package com.TOTeams.TeacherHub.models;
 
 public enum Role {
   ADMIN(1),

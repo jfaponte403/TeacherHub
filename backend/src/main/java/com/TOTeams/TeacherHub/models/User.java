@@ -1,4 +1,4 @@
-package com.TOTeams.TeacherHub.User;
+package com.TOTeams.TeacherHub.models;
 
 import java.util.Collection;
 import java.util.List;
@@ -23,7 +23,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "student", uniqueConstraints = {@UniqueConstraint(columnNames = {"id_student", "first_name", "email"})})
+@Table(
+  name = "student", 
+  uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"email"}),
+    @UniqueConstraint(columnNames = {"first_name"}),
+    @UniqueConstraint(columnNames = {"id_student"})
+  }
+)
 public class User implements UserDetails {
   @Id
   @Column(name = "id_student", columnDefinition = "BINARY(16)")

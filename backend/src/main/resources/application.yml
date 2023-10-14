@@ -1,13 +1,19 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL8Dialect
   datasource: 
-    url: jdbc:mysql://localhost:3306/teacherhub?useSSL=false&serverTimezone=UTC
-    username: root 
-    password: 
+    url: jdbc:mysql://${application.database.HOST}:${application.database.PORT}/${application.database.NAME}?useSSL=false&serverTimezone=UTC
+    username: ${application.database.USER}
+    password: ${application.database.PASSWORD}
 
 application:
   jwt:
     SECRET_KEY: FC120BB229E9EC3D04138A46DD1A65FB32EB3A13BDDF90CE88BA62230602BFEC
+  database:
+    HOST: localhost
+    PORT: 3306
+    NAME: teacherhub
+    USER: root
+    PASSWORD: 

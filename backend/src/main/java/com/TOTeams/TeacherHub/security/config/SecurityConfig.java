@@ -1,4 +1,4 @@
-package com.TOTeams.TeacherHub.Config;
+package com.TOTeams.TeacherHub.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +9,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.TOTeams.TeacherHub.Jwt.JwtAuthentificationFilter;
+import com.TOTeams.TeacherHub.security.jwt.JwtAuthentificationFilter;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,11 +25,11 @@ public class SecurityConfig {
    * @author FaihdP
    * 
    * Configuration for web security, all request for "/auth/**" for any user are allowed.
-   * For rest of endpoints is necesary an authentification with JWT token
+   * For endpoints "/teacher/api/**" is necesary an authentification with JWT token
    * 
    * @param HttpSecurty http 
    * 
-   * @disabled CSRF (Coss-Site Request Forgery) is disabled because is used JWT tokens
+   * @disabled CSRF (Coss-Site Request Forgery) is disabled because is used JWT tokens   
    */
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -38,22 +38,14 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(authRequest -> 
           authRequest
-            .requestMatchers("/auth/**").permitAll()
-            .anyRequest().authenticated()
+            .requestMatchers("/auth/**").permitAll()            
+            .requestMatchers("/teacher/api/**").authenticated()
+            .anyRequest().permitAll()
         )
         .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authenticationProvider(authProvider)
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-        /*.exceptionHandling(exceptionHandling -> 
-          exceptionHandling
-            .authenticationEntryPoint(
-              (request, response, authException) -> {
-                response.sendRedirect("/unauthorized");
-              }
-            )
-        )*/
         .build();
-        
   }
 
 }

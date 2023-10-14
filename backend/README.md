@@ -35,7 +35,12 @@ Send a token in the header of the request.
   GET /teacherhub/api/welcome
 ```
 
-
-
-
-
+#### Get user
+#### Update user
+#### Create grade
+#### Get teacher (with any search param)
+#### Get teachers
+#### Get teachers by asignature
+#### Get asignature
+#### Get asignatures
+#### Get asignatures by teacher
