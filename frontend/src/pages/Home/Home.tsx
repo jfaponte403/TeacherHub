@@ -1,12 +1,15 @@
 import {Link} from "react-router-dom";
+import Navbar from '../../components/Navbar/Navbar';
+import LogIn from "../../components/AuthForms/LogIn";
+import Register from "../../components/AuthForms/Register";
 
 const Home = () => {
     return (
-        <div>
-            <h1 className="text-center">TeacherHub</h1>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
-        </div>
+        <>
+            <Navbar />
+            <LogIn />
+            <Register />
+        </>
     );
 }
 export default Home;
