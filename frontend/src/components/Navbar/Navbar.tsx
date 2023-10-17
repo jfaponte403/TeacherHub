@@ -1,29 +1,23 @@
 import { NavLink } from "react-router-dom";
+import logo from '../../assets/logo_nobg.png';
+import '../../styles/custom-buttons.css';
 
 const Navbar = () => {
     return (
         <>
-            <nav className="navbar navbar-expand-lg bg-body-tertiary">
+            <nav className="navbar navbar-expand-lg"  data-bs-theme="dark">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="#">Navbar</a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <a className="navbar-brand" href="#">
+                        <img src={logo} alt="TeacherHub" className="img-fluid" width={180} height={190}></img>
+                    </a>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <NavLink to="/user">User  </NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="/courses">courses  </NavLink>
-                                <a className="nav-link" href="#">Features</a>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="/teachers">teachers  </NavLink>
-                                <a className="nav-link" href="#">Pricing</a>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="/">Log out  </NavLink>
+                    <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        <ul className="navbar-nav ">
+                            
+                            <li className="nav-item ">
+                                <a className=" btn-outline-orange btn">Register</a>
                             </li>
                         </ul>
                     </div>

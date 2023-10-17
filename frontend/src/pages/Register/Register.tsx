@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 const Register = () => {
     return (
         <div>
-            <h1>TeacherHub</h1>
             <div>
                 <form>
                     <label>Nickname</label>
@@ -18,7 +17,6 @@ const Register = () => {
                     <label>Confirm your password</label>
                     <input type="password"/>
                 </form>
-                <Link to="/">Register</Link>
             </div>
         </div>
     );
