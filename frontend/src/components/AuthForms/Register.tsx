@@ -6,7 +6,7 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [nickname, setNickname] = useState("");
     const [password, setPassword] = useState("");
-    const [uuid, setUuid] = useState("");
+    // const [uuid, setUuid] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +54,7 @@ const Register = () => {
         }
 
         // TODO: Send request to backend | POST /auth/register
-        setUuid(crypto.randomUUID()); // Generate a random UUID
+        // setUuid(crypto.randomUUID()); // Generate a random UUID
 
         showAlert(
             { 
