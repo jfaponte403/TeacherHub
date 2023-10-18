@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { isValidEmail } from "../../utils/inputValidators";
+import { showAlert } from "../../utils/alertPrompts";
 
 const Register = () => {
     const [email, setEmail] = useState("");
@@ -26,19 +27,43 @@ const Register = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
+        
         if (!isValidEmail(email)) {
-            alert("Invalid email address");
+            showAlert(
+                {
+                    icon: 'error',
+                    title: 'Not valid email',
+                    text: 'Please, use your @udistrital.edu.co email',
+                    buttonText: 'Ok',
+                }
+            )
             return;
         }
 
         if (password !== confirmPassword) {
-            alert("Passwords do not match");
+            showAlert(
+                {
+                    icon: 'error',
+                    title: 'Passwords do not match',
+                    text: 'Please, check your password',
+                    buttonText: 'Ok',
+                }
+            )
+
             return;
         }
 
         // TODO: Send request to backend | POST /auth/register
         setUuid(crypto.randomUUID()); // Generate a random UUID
+
+        showAlert(
+            { 
+                icon: 'success',
+                title: 'Account created successfully',
+                text: 'Welcome to TeacherHub!',
+                buttonText: 'Ok',
+            }
+        )
     };
 
     return (

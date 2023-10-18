@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import  { isValidEmail } from "../../utils/inputValidators";
+import { showAlert } from "../../utils/alertPrompts";
 
 const LogIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
@@ -16,9 +19,18 @@ const LogIn = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (!isValidEmail(email)) {
-            alert("Please enter a valid udistrital email address");
+            showAlert(
+                {
+                    icon: 'error',
+                    title: 'Not valid email',
+                    text: 'Please, use your @udistrital.edu.co email',
+                    buttonText: 'Ok',
+                }
+            )
             return;
         }
+
+        navigate('/home-user');
     };
 
     return (
