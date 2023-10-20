@@ -2,6 +2,10 @@ package com.TOTeams.TeacherHub.services;
 
 import javax.naming.AuthenticationException;
 
+import com.TOTeams.TeacherHub.models.Code;
+//import com.TOTeams.TeacherHub.repositories.codeRepository;
+import com.TOTeams.TeacherHub.repositories.codeRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -48,9 +52,9 @@ public class AuthService {
       .builder()
       .token(token)
       .build();
-  }
+  };
 
-  
+  ///////////////////////////////////////////////////////////////////////////////////////////
   public AuthResponse register(RegisterRequest request) {
     String hash = saltService.generateSalt();
     User user = User
@@ -59,7 +63,7 @@ public class AuthService {
       .nickname(request.getNickname())
       .email(request.getEmail())
       .password(passwordEncoder.encode(hash + request.getPassword()))
-      .role(Role.USER)
+      .id_role(Role.USER)
       .hash(hash)
       .build();
 
@@ -68,11 +72,41 @@ public class AuthService {
     } catch (DataIntegrityViolationException e) {
       throw e;
     }
-      
+
     return AuthResponse
       .builder()
       .token(jwtService.getToken(user))
       .build();
+  };
+
+  ///////////////////////////////////////////////////////////////////////////////////////////
+
+  private final codeRepository authCodeRepository;
+  private final UserRespository studentRepository;
+
+  /*@Autowired
+  public void AuthCodeService(codeRepository authCodeRepository, UserRespository studentRepository) {
+    this.authCodeRepository = authCodeRepository;
+    this.studentRepository = studentRepository;
+  }*/
+
+  @Transactional
+  public boolean verifyCodeAndUpdateStatus(String studentId, String codeToVerify) {
+    Code authCode = authCodeRepository.findByStudentId(studentId);
+
+    if (authCode != null && authCode.getCode().equals(codeToVerify)) {
+      // El código es válido, actualiza el estado del estudiante a true
+      User student = studentRepository.findById(studentId).orElse(null);
+      if (student != null) {
+        student.setActive(true);
+        studentRepository.save(student);
+        return true;
+      }
+    }
+    return false;
   }
-  
+
+  ///////////////////////////////////////////////////////////////////////////////////////////
+
+
 }

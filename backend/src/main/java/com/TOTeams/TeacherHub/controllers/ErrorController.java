@@ -13,12 +13,11 @@ public class ErrorController {
   
   @RequestMapping("/unauthorized")
   public ResponseEntity<Object> unauthorized() {
-    return ResponseHandler
+      return ResponseHandler
       .generateResponse(
         HttpStatus.UNAUTHORIZED, 
         "/unauthorized",
         "You aren't authorized for access to this link."
       );
   }
-
 }

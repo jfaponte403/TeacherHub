@@ -10,10 +10,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/teacherhub/api")
 @RequiredArgsConstructor
 public class TeacherHubController {
-  
   @GetMapping("welcome")
   public String welcome() {
     return "Welcome";
   }
-
 }
