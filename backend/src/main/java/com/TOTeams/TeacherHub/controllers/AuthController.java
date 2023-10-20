@@ -5,14 +5,12 @@ import java.util.stream.Stream;
 
 import javax.naming.AuthenticationException;
 
+import com.TOTeams.TeacherHub.models.SendEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.TOTeams.TeacherHub.security.models.AuthResponse;
 import com.TOTeams.TeacherHub.security.models.LoginRequest;
@@ -35,8 +33,7 @@ public class AuthController {
     boolean allNeedFields = Stream.of(
       request.getEmail(),
       request.getPassword()
-    ).allMatch(value -> 
-      // This validate if all fields are different to null or empty
+    ).allMatch(value ->
       value != null || (value instanceof String && !value.isEmpty())
     );
 
@@ -70,6 +67,10 @@ public class AuthController {
     return ResponseEntity.ok(response);
   }
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @Autowired
+  public SendEmail sendEmail;
   @PostMapping("register")
   public ResponseEntity<Object> register(@RequestBody RegisterRequest request) {
 
@@ -80,8 +81,7 @@ public class AuthController {
       request.getEmail(),
       request.getPassword(),
       request.getNickname()
-    ).allMatch(value -> 
-      // This validate if all fields are different to null or empty
+    ).allMatch(value ->
       value != null || (value instanceof String && !((String) value).isEmpty())
     );
 
@@ -104,8 +104,25 @@ public class AuthController {
           "The user can't be created because the email or nickname is already registered."
         );
     }
-
+    sendEmail.sendEmails(request.getEmail());
     return ResponseEntity.ok(authResponse);
   }
 
-} 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  //@Autowired
+ /* public void CodigoController(AuthService authCodeService) {
+    this.authCodeService = authCodeService;
+  }*/
+  @GetMapping("/verificar")
+  public ResponseEntity<String> verificarCodigo(
+          @RequestParam String idEstudiante,
+          @RequestParam String codigo) {
+    if (authService.verifyCodeAndUpdateStatus(idEstudiante, codigo)) {
+      return ResponseEntity.ok("El código es válido y el estado del estudiante ha sido actualizado.");
+    } else {
+      return ResponseEntity.badRequest().body("El código no es válido o no existe.");
+    }
+  }
+
+} //FINAL
