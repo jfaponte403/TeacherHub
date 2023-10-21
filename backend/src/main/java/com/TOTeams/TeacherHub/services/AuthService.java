@@ -2,11 +2,7 @@ package com.TOTeams.TeacherHub.services;
 
 import javax.naming.AuthenticationException;
 
-import com.TOTeams.TeacherHub.models.Code;
 //import com.TOTeams.TeacherHub.repositories.codeRepository;
-import com.TOTeams.TeacherHub.repositories.CodeRepository;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,8 +19,6 @@ import com.TOTeams.TeacherHub.security.models.LoginRequest;
 import com.TOTeams.TeacherHub.security.models.RegisterRequest;
 
 import lombok.RequiredArgsConstructor;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -66,7 +60,7 @@ public class AuthService {
       .password(passwordEncoder.encode(hash + request.getPassword()))
       .id_role(Role.USER)
       .hash(hash)
-            .isActive(false)
+            .is_active(false)
       .build();
 
     try {

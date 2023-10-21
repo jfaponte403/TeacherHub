@@ -51,7 +51,7 @@ public class User implements UserDetails {
   String hash;
 
   @Column(name = "is_active", nullable = false )
-  boolean isActive;
+  boolean is_active;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -88,6 +88,6 @@ public class User implements UserDetails {
     return true;
   }
 
-  public void setActive(boolean b) {
+  public void setIs_active(boolean b) {
   }
 }

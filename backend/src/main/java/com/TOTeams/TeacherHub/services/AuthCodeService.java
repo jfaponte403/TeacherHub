@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,6 +23,7 @@ public class AuthCodeService {
     private final UserRespository userRespository;
     private final AuthCodes authCodes;
     private final EmailSender emailSender;
+    private final PasswordEncoder passwordEncoder;
 
 
     public boolean registerCode(String studentId) {
@@ -32,8 +34,7 @@ public class AuthCodeService {
                 .date_time(java.time.LocalDateTime.now())
                 .build();
         try{
-            // TODO: Delete all previous codes for this student
-            // authCodeRepository.deleteByIdStudent(studentId);
+            authCodeRepository.deleteByIdStudent(studentId);
             authCodeRepository.save(authCode);
         } catch (DataIntegrityViolationException e) {
             throw e;
@@ -52,11 +53,24 @@ public class AuthCodeService {
     @Transactional
     public boolean verifyCodeAndUpdateStatus(String studentId, String codeToVerify) {
         Optional<Code> authCode = authCodeRepository.findByIdStudent(studentId);
-
-        if (authCode != null && authCode.get().equals(codeToVerify)) {
+        if (authCode != null && authCode.get().getCode().equals(codeToVerify)) {
             User student = userRespository.findById(studentId).orElse(null);
             if (student != null) {
-                student.setActive(true);
+                student.setIs_active(true);
+                return userRespository.activateUser(student.getId(), true) == 1;
+            }
+        }
+        return false;
+    }
+
+    @Transactional
+    public boolean verifyCodeAndUpdatePassword(String studentId, String codeToVerify, String newPassword) {
+        Optional<Code> authCode = authCodeRepository.findByIdStudent(studentId);
+
+        if (authCode != null && authCode.get().getCode().equals(codeToVerify)) {
+            User student = userRespository.findById(studentId).orElse(null);
+            if (student != null) {
+                student.setPassword(passwordEncoder.encode(student.getHash() + newPassword));
                 userRespository.save(student);
                 return true;
             }
