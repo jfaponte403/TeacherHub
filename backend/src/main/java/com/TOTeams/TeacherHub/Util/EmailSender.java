@@ -1,18 +1,21 @@
 package com.TOTeams.TeacherHub.Util;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 
-@AllArgsConstructor
+
 @Component
-public class MailSender {
+public class EmailSender {
     @Autowired
     private final JavaMailSender javaMailSender;
+
+    public EmailSender(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
 
     public void sendEmail(String emailAdress, String subject, String body){
         SimpleMailMessage mail = new SimpleMailMessage();

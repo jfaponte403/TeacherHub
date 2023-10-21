@@ -4,21 +4,26 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.sql.Time;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "auth_code")
 public class Code {
     @Id
     @Column(name = "id_student")
     private String id_student;
     @Column(name = "date_time")
-    private Time date_time;
+    private LocalDateTime date_time;
     @Column(name = "code")
     private String code;
 
-    public Code() {
-    }
 
     public String getId_student() {
         return id_student;
@@ -28,11 +33,11 @@ public class Code {
         this.id_student = id_student;
     }
 
-    public Time getDate_time() {
+    public LocalDateTime getDate_time() {
         return date_time;
     }
 
-    public void setDate_time(Time date_time) {
+    public void setDate_time(LocalDateTime date_time) {
         this.date_time = date_time;
     }
 

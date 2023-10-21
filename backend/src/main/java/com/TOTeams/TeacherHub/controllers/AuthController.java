@@ -5,7 +5,6 @@ import java.util.stream.Stream;
 
 import javax.naming.AuthenticationException;
 
-import com.TOTeams.TeacherHub.models.SendEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -16,6 +15,7 @@ import com.TOTeams.TeacherHub.security.models.AuthResponse;
 import com.TOTeams.TeacherHub.security.models.LoginRequest;
 import com.TOTeams.TeacherHub.security.models.RegisterRequest;
 import com.TOTeams.TeacherHub.services.AuthService;
+import com.TOTeams.TeacherHub.services.AuthCodeService;
 import com.TOTeams.TeacherHub.util.ResponseHandler;
 
 import lombok.RequiredArgsConstructor;
@@ -25,8 +25,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthController {
 
-  @Autowired
   private final AuthService authService;
+  private final AuthCodeService authCodeService;
 
   @PostMapping("login")
   public ResponseEntity<Object> login(@RequestBody LoginRequest request) {
@@ -69,13 +69,10 @@ public class AuthController {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  @Autowired
-  public SendEmail sendEmail;
   @PostMapping("register")
   public ResponseEntity<Object> register(@RequestBody RegisterRequest request) {
 
     String path = "auth/register";
-
     boolean allNeedFields = Stream.of(
       request.getId(),
       request.getEmail(),
@@ -104,7 +101,9 @@ public class AuthController {
           "The user can't be created because the email or nickname is already registered."
         );
     }
-    sendEmail.sendEmails(request.getEmail());
+
+    authCodeService.registerCode(request.getId().toString());
+
     return ResponseEntity.ok(authResponse);
   }
 
@@ -114,11 +113,11 @@ public class AuthController {
  /* public void CodigoController(AuthService authCodeService) {
     this.authCodeService = authCodeService;
   }*/
-  @GetMapping("/verificar")
+  @GetMapping("/updatePassword")
   public ResponseEntity<String> verificarCodigo(
           @RequestParam String idEstudiante,
           @RequestParam String codigo) {
-    if (authService.verifyCodeAndUpdateStatus(idEstudiante, codigo)) {
+    if (authCodeService.verifyCodeAndUpdateStatus(idEstudiante, codigo)) {
       return ResponseEntity.ok("El código es válido y el estado del estudiante ha sido actualizado.");
     } else {
       return ResponseEntity.badRequest().body("El código no es válido o no existe.");

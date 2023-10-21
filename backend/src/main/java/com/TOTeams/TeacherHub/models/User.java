@@ -2,7 +2,6 @@ package com.TOTeams.TeacherHub.models;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -33,8 +32,8 @@ import lombok.NoArgsConstructor;
 )
 public class User implements UserDetails {
   @Id
-  @Column(name = "id_student", columnDefinition = "BINARY(16)")
-  UUID id;
+  @Column(name = "id_student", nullable = false, updatable = false, columnDefinition = "VARCHAR(36)")
+  String id;
   
   @Column(name = "first_name", nullable = false)
   String nickname;
@@ -49,7 +48,10 @@ public class User implements UserDetails {
   String password;
 
   @Column
-  String hash;  
+  String hash;
+
+  @Column(name = "is_active", nullable = false )
+  boolean isActive;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

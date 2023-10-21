@@ -2,7 +2,6 @@ package com.TOTeams.TeacherHub.repositories;
 
 import java.util.Optional;
 
-import com.TOTeams.TeacherHub.models.Code;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -13,4 +12,4 @@ public interface UserRespository extends JpaRepository<User, String> {
    @Query(value = "SELECT hash FROM student WHERE student.email = ?1", nativeQuery = true)
    Optional<String> findHashByEmail(String email);
 
-};
+}
