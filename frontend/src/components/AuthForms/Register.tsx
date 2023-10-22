@@ -67,25 +67,54 @@ const Register = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Email:
-                <input type="email" value={email} onChange={handleEmailChange} />
-            </label>
-            <label>
-                Nickname:
-                <input type="text" value={nickname} onChange={handleNicknameChange} />
-            </label>
-            <label>
-                Password:
-                <input type="password" value={password} onChange={handlePasswordChange} />
-            </label>
-            <label>
-                Confirm Password:
-                <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} />
-            </label>
-            <button type="submit">Register</button>
-        </form>
+        <div className="d-flex justify-content-center align-items-center mx-5 my-1">
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="email">Email:</label>
+                    <input
+                        type="email"
+                        className="form-control"
+                        id="email"
+                        value={email}
+                        onChange={handleEmailChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="nickname">Nickname:</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="nickname"
+                        value={nickname}
+                        onChange={handleNicknameChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password:</label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        id="password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="confirmPassword">Confirm Password:</label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        id="confirmPassword"
+                        value={confirmPassword}
+                        onChange={handleConfirmPasswordChange}
+                    />
+                </div>
+                <div className="text-center m-2">
+                    <button type="submit" className="btn-outline-orange btn">Register</button>
+                </div>
+            </form>
+        </div>
+
     );
 };
 

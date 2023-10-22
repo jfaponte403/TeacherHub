@@ -1,0 +1,20 @@
+.container-main {
+    position: absolute;
+    top: 73px; /* Replace [navbar height] with the actual height of your navbar */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 73px); /* Replace [navbar height] with the actual height of your navbar */
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.info-user {
+    width: 30% !important; /* Take up 50% of the width to push it to the right */
+    text-align: center !important; /* Center the content inside .info-user */
+}
+
+.user-opc {
+    width: 70% !important; /* Take up 50% of the width to push it to the left */
+    text-align: center !important; /* Center the content inside .user-opc */
+}
