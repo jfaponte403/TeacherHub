@@ -34,17 +34,34 @@ const LogIn = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Email:
-                <input type="email" value={email} onChange={handleEmailChange} />
-            </label>
-            <label>
-                Password:
-                <input type="password" value={password} onChange={handlePasswordChange} />
-            </label>
-            <button type="submit">Log In</button>
-        </form>
+        <div className="d-flex justify-content-center align-items-center mx-5 my-1">
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="email">Email:</label>
+                    <input
+                        type="email"
+                        className="form-control"
+                        id="email"
+                        value={email}
+                        onChange={handleEmailChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password:</label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        id="password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                    />
+                </div>
+                <div className="text-center m-2">
+                    <button type="submit" className="btn-outline-orange btn">Log In</button>
+                </div>
+            </form>
+        </div>
+
     );
 };
 

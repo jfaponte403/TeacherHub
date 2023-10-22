@@ -1,3 +1,8 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevents scrolling */
+}
 
 .btn-orange {
     background-color: #f57c00 !important;
@@ -15,4 +20,23 @@
     color: #fff !important;
     background-color: #f57c01 !important;
     border-color: #f57c00 !important;
+}
+
+
+.btn-red {
+    background-color: #ff0000 !important; /* Red color */
+    border-color: #ff0000 !important;
+}
+
+.btn-outline-red {
+    color: #ff0000 !important;
+    background-color: transparent;
+    background-image: none;
+    border-color: #ff0000 !important;
+}
+
+.btn-outline-red:hover {
+    color: #fff !important;
+    background-color: #ff0001 !important; /* Slightly different shade for hover */
+    border-color: #ff0000 !important;
 }
