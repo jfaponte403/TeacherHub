@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(
-  name = "student", 
+  name = "subject",
   uniqueConstraints = {
     @UniqueConstraint(columnNames = {"name"}),
     @UniqueConstraint(columnNames = {"id_subject"})
@@ -29,7 +29,7 @@ public class Subject {
   
     @Column(name = "name", nullable = false)
     String name;
-  
+
 
     public String getName() {
         return name;
