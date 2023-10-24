@@ -1,7 +1,6 @@
-package com.TOTeams.TeacherHub.Util;
+package com.TOTeams.TeacherHub.util;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 

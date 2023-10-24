@@ -1,7 +1,7 @@
 package com.TOTeams.TeacherHub.services;
 
-import com.TOTeams.TeacherHub.Util.AuthCodes;
-import com.TOTeams.TeacherHub.Util.EmailSender;
+import com.TOTeams.TeacherHub.util.AuthCodes;
+import com.TOTeams.TeacherHub.util.EmailSender;
 import com.TOTeams.TeacherHub.models.Code;
 import com.TOTeams.TeacherHub.models.User;
 import com.TOTeams.TeacherHub.repositories.CodeRepository;

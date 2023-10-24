@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import com.TOTeams.TeacherHub.models.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -25,14 +26,17 @@ public class JwtService {
   /*
    * 
    */
-  public String getToken(UserDetails user) {
+  public String getToken(User user) {
     return getToken(new HashMap<>(), user);
   }
 
-  private String getToken(Map<String, Object> extraClaim, UserDetails user) {
+  private String getToken(Map<String, Object> extraClaim, User user) {
     Date currentDate = new Date(System.currentTimeMillis());
     Date experationDate = new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24);
-    
+
+    extraClaim.put("user_id", user.getId());
+    extraClaim.put("user_role", user.getId_role());
+
     return Jwts
       .builder()
       .setClaims(extraClaim)
