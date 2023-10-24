@@ -1,4 +1,4 @@
-package com.TOTeams.TeacherHub.Util;
+package com.TOTeams.TeacherHub.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
