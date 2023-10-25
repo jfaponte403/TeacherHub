@@ -1,4 +1,5 @@
 import NavbarLogged from "../../components/NavbarLogged/NavbarLogged.tsx";
+import Course from "../../components/Course/Course.tsx";
 
 const Courses = () => {
     return (
@@ -14,9 +15,17 @@ const Courses = () => {
                     </div>
                 </div>
                 {/* list */}
-                <div className="courses-list d-flex flex-column my-3">
-                    <button className="btn-outline-orange btn my-3">courses 1</button>
-                    <button className="btn-outline-orange btn">courses 2</button>
+                <div className="courses-list d-flex flex-column my-3 overflow-auto" style={{ maxHeight: '400px', overflowY: 'auto' }}>
+                    <Course />
+                    <Course />
+                    <Course />
+                    <Course />
+                    <Course />
+                    <Course />
+                    <Course />
+                    <Course />
+                    <Course />
+                    <Course />
                 </div>
             </div>
         </>

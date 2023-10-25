@@ -1,4 +1,5 @@
 import NavbarLogged from "../../components/NavbarLogged/NavbarLogged.tsx";
+import Teacher from "../../components/Teacher/Teacher.tsx";
 
 const Teachers = () => {
     return (
@@ -13,11 +14,17 @@ const Teachers = () => {
                         </div>
                     </div>
                 </div>
-                {/* Courses list */}
-                <div className="courses-list d-flex flex-column my-3">
-                    <button className="btn-outline-orange btn my-3">Teacher 1</button>
-                    <button className="btn-outline-orange btn">Teacher 2</button>
+                {/* Teachers list */}
+                <div className="courses-list d-flex flex-column my-3 overflow-auto" style={{ maxHeight: '400px' }}>
+                    <Teacher />
+                    <Teacher />
+                    <Teacher />
+                    <Teacher />
+                    <Teacher />
+                    <Teacher />
+                    <Teacher />
                 </div>
+
             </div>
         </>
     );
