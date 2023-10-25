@@ -15,4 +15,7 @@ public interface SubjectRepository extends JpaRepository<Subject, String> {
 
     @Query(value = "SELECT * FROM subject WHERE name = ?1", nativeQuery = true)
     List<Subject> findByName(String name);
+
+    /*@Query("SELECT s FROM subject s WHERE s.id_subject IN (SELECT id_subject FROM professor_subject WHERE id_professor = ?1)")
+    List<Subject> listByTeacherId(String teacherId);*/
 }
