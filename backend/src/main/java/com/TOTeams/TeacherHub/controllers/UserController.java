@@ -61,21 +61,9 @@ public class UserController {
         );
     }
 
-    @DeleteMapping
-    public ResponseEntity<Object> deleteUser(@RequestBody StudentResponse student) {
-        boolean allNeedFields = Stream.of(
-                student.getId()
-        ).allMatch(value -> value != null && !(value instanceof String) || !((String) value).isEmpty());
-
-        if (!allNeedFields)
-            return ResponseHandler
-                    .generateResponse(
-                            HttpStatus.BAD_REQUEST,
-                            "users/delete",
-                            "Any required field hasn't been specified"
-                    );
-
-        if(userService.deleteUser(student.getId())){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteUser(@PathVariable String id) {
+        if(userService.deleteUser(id)){
             return ResponseHandler
                     .generateResponse(
                             HttpStatus.OK,
