@@ -2,7 +2,8 @@ package com.TOTeams.TeacherHub.services;
 
 import com.TOTeams.TeacherHub.models.Teacher;
 import com.TOTeams.TeacherHub.repositories.TeacherRepository;
-import com.TOTeams.TeacherHub.security.models.TeacherResponse;
+import com.TOTeams.TeacherHub.models.responses.TeacherResponse;
+import com.TOTeams.TeacherHub.repositories.TeacherSubjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +14,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TeacherService {
     private final TeacherRepository teacherRepository;
-    private final SubjectService subjectService;
+    private final TeacherSubjectService teacherSubjectService;
 
     public TeacherResponse getTeacherById(String id) {
         Teacher t = teacherRepository.findById(id).orElseThrow();
         return TeacherResponse
-                .builder()
-                .id(t.getId())
-                .name(t.getName())
-                //.subjects(subjectService.getByTeacherId(t.getId()))
-                .build();
+            .builder()
+            .id(t.getId())
+            .name(t.getName())
+            .subjects(t.getSubjects())
+            .build();
     }
 
     public boolean updateTeacher(TeacherResponse teacher) {
@@ -34,9 +35,10 @@ public class TeacherService {
 
     public boolean addTeacher(TeacherResponse teacher) {
         Teacher t = Teacher
-                .builder()
-                .name(teacher.getName())
-                .build();
+            .builder()
+            .id(teacher.getId())
+            .name(teacher.getName())
+            .build();
         teacherRepository.save(t);
         return true;
     }
@@ -45,12 +47,12 @@ public class TeacherService {
     public List<TeacherResponse> getAllTeachers() {
         List<TeacherResponse> teachers = new ArrayList<>();
         for(Teacher t : teacherRepository.findAll()) {
-                teachers.add(TeacherResponse
-                        .builder()
-                        .id(t.getId())
-                        .name(t.getName())
-                        //.subjects(subjectService.getByTeacherId(t.getId()))
-                        .build());
+            teachers.add(TeacherResponse
+                .builder()
+                .id(t.getId())
+                .name(t.getName())
+                .subjects(t.getSubjects())
+                .build());
         }
         return teachers;
     }

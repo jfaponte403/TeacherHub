@@ -2,7 +2,7 @@ package com.TOTeams.TeacherHub.services;
 
 import com.TOTeams.TeacherHub.models.Subject;
 import com.TOTeams.TeacherHub.repositories.SubjectRepository;
-import com.TOTeams.TeacherHub.security.models.SubjectRequest;
+import com.TOTeams.TeacherHub.models.requests.SubjectRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,29 +22,15 @@ public class SubjectService {
         List<SubjectRequest> subjects = new ArrayList<>();
         for (Subject s : subjectRepository.findAll()) {
             subjects.add(
-                    SubjectRequest
-                            .builder()
-                            .id(s.getId())
-                            .name(s.getName())
-                            .build()
+                SubjectRequest
+                    .builder()
+                    .id(s.getId())
+                    .name(s.getName())
+                    .build()
             );
         }
         return subjects;
     }
-
-    /*public List<SubjectRequest> getByTeacherId(String id){
-        List<SubjectRequest> subjects = new ArrayList<>();
-        for (Subject s : subjectRepository.listByTeacherId(id)) {
-            subjects.add(
-                    SubjectRequest
-                            .builder()
-                            .id(s.getId())
-                            .name(s.getName())
-                            .build()
-            );
-        }
-        return subjects;
-    }*/
 
     public boolean createSubject(SubjectRequest subject) {
         Subject s = Subject

@@ -53,11 +53,11 @@ public class AuthCodeService {
     @Transactional
     public boolean verifyCodeAndUpdateStatus(String studentId, String codeToVerify) {
         Optional<Code> authCode = authCodeRepository.findByIdStudent(studentId);
-        if (authCode != null && authCode.get().getCode().equals(codeToVerify)) {
+        if (authCode.isPresent() && authCode.get().getCode().equals(codeToVerify)) {
             User student = userRespository.findById(studentId).orElse(null);
             if (student != null) {
                 student.setIs_active(true);
-                return userRespository.activateUser(student.getId(), true) == 1;
+                return userRespository.findByIdAndActive(student.getId(), true) == 1;
             }
         }
         return false;

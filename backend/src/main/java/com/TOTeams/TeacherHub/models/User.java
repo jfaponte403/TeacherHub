@@ -53,11 +53,9 @@ public class User implements UserDetails {
   @Column(name = "is_active", nullable = false )
   boolean is_active;
 
-
-
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of(new SimpleGrantedAuthority(id_role.name()));
+    return List.of(new SimpleGrantedAuthority("ROLE_" + id_role.name()));
   }
 
   @Override

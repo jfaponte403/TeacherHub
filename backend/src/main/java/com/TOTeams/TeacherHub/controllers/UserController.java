@@ -1,10 +1,11 @@
 package com.TOTeams.TeacherHub.controllers;
 
-import com.TOTeams.TeacherHub.security.models.StudentResponse;
+import com.TOTeams.TeacherHub.models.responses.StudentResponse;
 import com.TOTeams.TeacherHub.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
 import com.TOTeams.TeacherHub.util.ResponseHandler;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("teacherhub/api/users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -29,13 +30,14 @@ public class UserController {
     }
 
     @PutMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> updateUser(@RequestBody StudentResponse student) {
         boolean allNeedFields = Stream.of(
-                student.getId(),
-                student.getNickname(),
-                student.getEmail(),
-                student.getId_role(),
-                student.is_active()
+            student.getId(),
+            student.getNickname(),
+            student.getEmail(),
+            student.getId_role(),
+            student.is_active()
         ).allMatch(value -> value != null && !(value instanceof String) || !((String) value).isEmpty());
 
         if (!allNeedFields)
@@ -62,6 +64,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> deleteUser(@PathVariable String id) {
         if(userService.deleteUser(id)){
             return ResponseHandler

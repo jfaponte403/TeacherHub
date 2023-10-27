@@ -3,6 +3,7 @@ package com.TOTeams.TeacherHub.services;
 import javax.naming.AuthenticationException;
 
 //import com.TOTeams.TeacherHub.repositories.codeRepository;
+import com.TOTeams.TeacherHub.util.exceptions.UserNotActiveException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,9 +31,11 @@ public class AuthService {
   private final AuthenticationManager authenticationManager;  
   private final SaltService saltService;
 
-  public AuthResponse login(LoginRequest request) throws AuthenticationException {
+  public AuthResponse login(LoginRequest request) throws AuthenticationException, UserNotActiveException {
     User user = userRespository.findByEmail(request.getEmail()).orElseThrow();
-    
+
+    if (!user.is_active()) throw new UserNotActiveException();
+
     authenticationManager
       .authenticate(
         new UsernamePasswordAuthenticationToken(
@@ -49,7 +52,6 @@ public class AuthService {
       .build();
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////////
   public AuthResponse register(RegisterRequest request) {
     String hash = saltService.generateSalt();
     User user = User
@@ -60,7 +62,7 @@ public class AuthService {
       .password(passwordEncoder.encode(hash + request.getPassword()))
       .id_role(Role.USER)
       .hash(hash)
-            .is_active(false)
+      .is_active(false)
       .build();
 
     try {
