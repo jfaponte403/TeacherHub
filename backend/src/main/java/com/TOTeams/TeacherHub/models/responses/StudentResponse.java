@@ -1,4 +1,4 @@
-package com.TOTeams.TeacherHub.security.models;
+package com.TOTeams.TeacherHub.models.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

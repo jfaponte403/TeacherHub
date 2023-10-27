@@ -16,6 +16,6 @@ public interface UserRespository extends JpaRepository<User, String> {
 
    @Modifying
    @Query("UPDATE User u SET u.is_active = ?2 WHERE u.id = ?1")
-   int activateUser(String id, boolean active);
+   int findByIdAndActive(String id, boolean active);
 
 }

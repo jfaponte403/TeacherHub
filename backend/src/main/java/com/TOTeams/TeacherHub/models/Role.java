@@ -6,7 +6,7 @@ public enum Role {
 
   private final Integer value;
 
-  Role(Integer value) { 
+  Role(Integer value) {
     this.value = value;
   }
 

@@ -1,18 +1,15 @@
-package com.TOTeams.TeacherHub.security.models;
+package com.TOTeams.TeacherHub.models.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TeacherResponse {
+public class SubjectRequest {
     String id;
     String name;
-    //List<SubjectRequest> subjects;
 }

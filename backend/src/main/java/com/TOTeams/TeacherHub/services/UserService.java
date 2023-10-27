@@ -3,7 +3,7 @@ package com.TOTeams.TeacherHub.services;
 import com.TOTeams.TeacherHub.models.Role;
 import com.TOTeams.TeacherHub.models.User;
 import com.TOTeams.TeacherHub.repositories.UserRespository;
-import com.TOTeams.TeacherHub.security.models.StudentResponse;
+import com.TOTeams.TeacherHub.models.responses.StudentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,21 +18,25 @@ public class UserService {
     public List<StudentResponse> getAllUsers() {
         List<StudentResponse> users = new ArrayList<>();
         for(User u : userRepository.findAll()) {
-                users.add(StudentResponse
-                        .builder()
-                        .id(u.getId())
-                        .nickname(u.getNickname())
-                        .email(u.getEmail())
-                        .id_role(u.getId_role().getValue())
-                        .is_active(u.is_active())
-                        .build());
+            users.add(
+                StudentResponse
+                    .builder()
+                    .id(u.getId())
+                    .nickname(u.getNickname())
+                    .email(u.getEmail())
+                    .id_role(u.getId_role().getValue())
+                    .is_active(u.is_active())
+                    .build()
+            );
         }
+
         return users;
     }
 
     public StudentResponse getUserById(String id) {
         User u = userRepository.findById(id).orElseThrow();
-        return StudentResponse
+        return
+            StudentResponse
                 .builder()
                 .id(u.getId())
                 .nickname(u.getNickname())

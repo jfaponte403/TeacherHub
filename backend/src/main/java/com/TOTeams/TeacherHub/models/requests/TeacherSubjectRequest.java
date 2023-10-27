@@ -1,4 +1,4 @@
-package com.TOTeams.TeacherHub.security.models;
+package com.TOTeams.TeacherHub.models.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubjectRequest {
-    String id;
-    String name;
+public class TeacherSubjectRequest {
+  String id;
+  String idTeacher;
+  String idSubject;
 }

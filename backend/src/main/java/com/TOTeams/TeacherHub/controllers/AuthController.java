@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import javax.naming.AuthenticationException;
 
 import com.TOTeams.TeacherHub.security.models.*;
+import com.TOTeams.TeacherHub.util.exceptions.UserNotActiveException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class AuthController {
       request.getEmail(),
       request.getPassword()
     ).allMatch(value ->
-      value != null || (value instanceof String && !value.isEmpty())
+      value != null && !value.isEmpty()
     );
 
     if (!allNeedFields) 
@@ -44,6 +45,7 @@ public class AuthController {
         );
 
     AuthResponse response = null;
+
     try {
       response = authService.login(request);
     } catch (AuthenticationException e) {
@@ -60,12 +62,18 @@ public class AuthController {
           "auth/login", 
           "The users doesn't exists"
         );
+    } catch (UserNotActiveException e) {
+      return ResponseHandler
+        .generateResponse(
+          HttpStatus.FORBIDDEN,
+          "auth/login",
+          "User don't active"
+        );
     }
 
     return ResponseEntity.ok(response);
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @PostMapping("register")
   public ResponseEntity<Object> register(@RequestBody RegisterRequest request) {
@@ -77,7 +85,7 @@ public class AuthController {
       request.getPassword(),
       request.getNickname()
     ).allMatch(value ->
-      value != null || (value instanceof String && !((String) value).isEmpty())
+      value != null && (value instanceof String && !((String) value).isEmpty())
     );
 
     if (!allNeedFields) 
@@ -102,7 +110,12 @@ public class AuthController {
 
     authCodeService.registerCode(request.getId().toString());
 
-    return ResponseEntity.ok(authResponse);
+    return ResponseHandler
+      .generateResponse(
+        HttpStatus.OK,
+        path,
+        "User created successfully"
+      );
   }
 
   @PostMapping("/verifyCode")
@@ -112,16 +125,16 @@ public class AuthController {
       request.getStudentId(),
       request.getVerificationCode()
     ).allMatch(value ->
-      value != null || (value instanceof String && !((String) value).isEmpty())
+      value != null && !value.isEmpty()
     );
 
     if (!allNeedFields) {
       return ResponseHandler
-              .generateResponse(
-                      HttpStatus.BAD_REQUEST,
-                      path,
-                      "Any required field hasn't been specified"
-              );
+        .generateResponse(
+          HttpStatus.BAD_REQUEST,
+          path,
+          "Any required field hasn't been specified"
+        );
     }
 
     if (authCodeService.verifyCodeAndUpdateStatus(request.getStudentId(), request.getVerificationCode())) {
@@ -135,27 +148,37 @@ public class AuthController {
     public ResponseEntity<Object> updatePassword(@RequestBody PasswordRequest request) {
         String path = "auth/updatePassword";
         boolean allNeedFields = Stream.of(
-        request.getStudentId(),
-        request.getNewPassword(),
-        request.getVerificationCode()
+          request.getStudentId(),
+          request.getNewPassword(),
+          request.getVerificationCode()
         ).allMatch(value ->
-        value != null || (value instanceof String && !((String) value).isEmpty())
+          value != null && !value.isEmpty()
         );
 
         if (!allNeedFields) {
-        return ResponseHandler
-                .generateResponse(
-                        HttpStatus.BAD_REQUEST,
-                        path,
-                        "Any required field hasn't been specified"
-                );
+          return ResponseHandler
+            .generateResponse(
+              HttpStatus.BAD_REQUEST,
+              path,
+              "Any required field hasn't been specified"
+            );
         }
 
-        if (authCodeService.verifyCodeAndUpdatePassword(request.getStudentId(), request.getVerificationCode(), request.getNewPassword())) {
-          return ResponseEntity.ok("Password has been updated.");
-        } else {
-          return ResponseEntity.badRequest().body("The code provided is not valid.");
+        if (!authCodeService.verifyCodeAndUpdatePassword(request.getStudentId(), request.getVerificationCode(), request.getNewPassword())) {
+          return ResponseHandler
+            .generateResponse(
+              HttpStatus.BAD_REQUEST,
+              path,
+              "Code provided is not valid"
+            );
         }
+
+        return ResponseHandler
+          .generateResponse(
+            HttpStatus.OK,
+            path,
+            "Updated password successfully"
+          );
     }
 
   @PostMapping("/generateCode")
@@ -164,25 +187,34 @@ public class AuthController {
     boolean allNeedFields = Stream.of(
       request.getStudentId()
     ).allMatch(value ->
-      value != null || (value instanceof String && !((String) value).isEmpty())
+      value != null && !value.isEmpty()
     );
 
     if (!allNeedFields) {
       return ResponseHandler
-              .generateResponse(
-                      HttpStatus.BAD_REQUEST,
-                      path,
-                      "Any required field hasn't been specified"
-              );
+        .generateResponse(
+          HttpStatus.BAD_REQUEST,
+          path,
+          "Any required field hasn't been specified"
+        );
     }
 
-    if(authCodeService.registerCode(request.getStudentId())) {
-      return ResponseEntity.ok("Code has been generated.");
-    } else {
-      return ResponseEntity.badRequest().body("The code provided is not valid.");
+    if(!authCodeService.registerCode(request.getStudentId())) {
+      return ResponseHandler
+        .generateResponse(
+          HttpStatus.BAD_REQUEST,
+          path,
+          "Code provided is not valid"
+        );
     }
+
+    return ResponseHandler
+      .generateResponse(
+        HttpStatus.OK,
+        path,
+        "Code has been generated"
+      );
   }
 
 }
 
-// get endpoint for generating a code
