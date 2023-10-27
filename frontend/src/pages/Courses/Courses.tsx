@@ -15,17 +15,10 @@ const Courses = () => {
                     </div>
                 </div>
                 {/* list */}
-                <div className="courses-list d-flex flex-column my-3 overflow-auto" style={{ maxHeight: '400px', overflowY: 'auto' }}>
-                    <Course />
-                    <Course />
-                    <Course />
-                    <Course />
-                    <Course />
-                    <Course />
-                    <Course />
-                    <Course />
-                    <Course />
-                    <Course />
+                <div className="courses-list d-flex flex-column my-3 overflow-auto" style={{ maxHeight: '460px', overflowY: 'auto' }}>
+                    <Course course='Differential Equations' link='/teachers-list-by-course' />
+                    <Course course='DataBases' link='/teachers-list-by-course' />
+                    <Course course='Txt 1' link='/teachers-list-by-course' />
                 </div>
             </div>
         </>

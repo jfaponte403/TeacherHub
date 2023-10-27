@@ -3,8 +3,10 @@ import Home from "../pages/Home/Home.tsx";
 import HomeUser from "../pages/Home-user/Home-user.tsx";
 import Courses from "../pages/Courses/Courses.tsx";
 import Teachers from "../pages/Teachers/Teachers.tsx";
-import User from "../pages/User/User.tsx";
-import UserInfo from "../pages/user-info/userInfo.tsx";
+import UserInfo from "../pages/User-info/userInfo.tsx";
+import TeacherListByCourse from "../pages/Teachers-list-by-course/TeacherListByCourse.tsx";
+import TeacherProfileByCourse from "../pages/Teacher-profile-by-course/TeacherProfileByCourse.tsx";
+import TeachersCourses from "../pages/TeachersCourses/TeachersCourses.tsx";
 
 const Routers = () => {
     return(
@@ -13,9 +15,11 @@ const Routers = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/home-user' element={<HomeUser />} />
                 <Route path='/courses' element={<Courses />} />
-                <Route path='/user' element={<User />} />
                 <Route path='/teachers' element={<Teachers />} />
                 <Route path='/user-info' element={<UserInfo />} />
+                <Route path='/teachers-list-by-course' element={<TeacherListByCourse />} />
+                <Route path='/teachers-profile-by-course' element={<TeacherProfileByCourse />} />
+                <Route path='/teachers-courses' element={<TeachersCourses />} />
             </Routes>
         </BrowserRouter>
     );

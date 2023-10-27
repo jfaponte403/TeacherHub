@@ -16,13 +16,10 @@ const Teachers = () => {
                 </div>
                 {/* Teachers list */}
                 <div className="courses-list d-flex flex-column my-3 overflow-auto" style={{ maxHeight: '400px' }}>
-                    <Teacher />
-                    <Teacher />
-                    <Teacher />
-                    <Teacher />
-                    <Teacher />
-                    <Teacher />
-                    <Teacher />
+                    <Teacher name="Diana martinez" description="see more" link="/teachers-courses" />
+                    <Teacher name="FuckN ardila" description="see more" link="/teachers-courses" />
+                    <Teacher name="Edilmo Carvajal" description="see more" link="/teachers-courses" />
+                    <Teacher name="Racistang" description="see more" link="/teachers-courses" />
                 </div>
 
             </div>
