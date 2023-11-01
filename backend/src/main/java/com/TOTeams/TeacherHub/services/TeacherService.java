@@ -1,6 +1,7 @@
 package com.TOTeams.TeacherHub.services;
 
 import com.TOTeams.TeacherHub.models.Teacher;
+import com.TOTeams.TeacherHub.models.requests.TeacherRequest;
 import com.TOTeams.TeacherHub.repositories.TeacherRepository;
 import com.TOTeams.TeacherHub.models.responses.TeacherResponse;
 import com.TOTeams.TeacherHub.repositories.TeacherSubjectRepository;
@@ -33,7 +34,7 @@ public class TeacherService {
         return true;
     }
 
-    public boolean addTeacher(TeacherResponse teacher) {
+    public boolean addTeacher(TeacherRequest teacher) {
         Teacher t = Teacher
             .builder()
             .id(teacher.getId())
