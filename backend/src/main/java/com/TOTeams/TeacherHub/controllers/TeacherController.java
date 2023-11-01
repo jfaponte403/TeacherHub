@@ -1,5 +1,6 @@
 package com.TOTeams.TeacherHub.controllers;
 
+import com.TOTeams.TeacherHub.models.requests.TeacherRequest;
 import com.TOTeams.TeacherHub.models.responses.TeacherResponse;
 import com.TOTeams.TeacherHub.services.TeacherService;
 import com.TOTeams.TeacherHub.util.ResponseHandler;
@@ -49,7 +50,7 @@ public class TeacherController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Object> createTeacher(@RequestBody TeacherResponse teacher) {
+    public ResponseEntity<Object> createTeacher(@RequestBody TeacherRequest teacher) {
         boolean allNeedFields = Stream.of(
             teacher.getId(),
             teacher.getName()

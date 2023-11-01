@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {  
-  UUID id;
+  String id;
   String nickname;  
   String email;
   String password;
