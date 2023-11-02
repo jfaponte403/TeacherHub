@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { isValidEmail } from "../../utils/inputValidators";
 import { showAlert } from "../../utils/alertPrompts";
 
+import { axiosInstance, postData } from "../../api";
+
 const Register = () => {
     const [email, setEmail] = useState("");
     const [nickname, setNickname] = useState("");
@@ -54,16 +56,37 @@ const Register = () => {
         }
 
         // TODO: Send request to backend | POST /auth/register
-        // setUuid(crypto.randomUUID()); // Generate a random UUID
-
-        showAlert(
-            { 
-                icon: 'success',
-                title: 'Account created successfully',
-                text: 'Welcome to TeacherHub!',
-                buttonText: 'Ok',
+        const id = crypto.randomUUID(); // Generate a random UUID
+        
+        postData(axiosInstance, '/auth/register', {
+            id,
+            email,
+            nickname,
+            password
+        }, {
+            'Content-Type': 'application/json'
+        }).then( response => {
+            if (response.status === 200) {
+                showAlert(
+                    { 
+                        icon: 'success',
+                        title: 'Account created successfully',
+                        text: 'Welcome to TeacherHub!.',
+                        buttonText: 'Ok',
+                    }
+                )
             }
-        )
+        }).catch(  error => {
+            showAlert(
+                { 
+                    icon: 'error',
+                    title: 'Something went wrong',
+                    text: 'Please, try again later.',
+                    buttonText: 'Ok',
+                }
+            )
+            console.log(error);
+        })
     };
 
     return (

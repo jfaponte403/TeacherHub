@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import  { isValidEmail } from "../../utils/inputValidators";
 import { showAlert } from "../../utils/alertPrompts";
+import { axiosInstance, postData } from "../../api";
 
 const LogIn = () => {
     const [email, setEmail] = useState("");
@@ -30,7 +31,31 @@ const LogIn = () => {
             return;
         }
 
-        navigate('/home-user');
+        postData(
+            axiosInstance,
+            '/auth/login',
+            {
+                email,
+                password,
+            },
+            {
+                'Content-Type': 'application/json',
+            }
+        ).then((response) => {
+            if ( response.status === 200 ) {
+                navigate('/home-user');
+            }
+        }).catch((error) => {
+            console.log(error);
+            showAlert(
+                {
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Please, check your email and password',
+                    buttonText: 'Ok',
+                }
+            )
+        })
     };
 
     return (
