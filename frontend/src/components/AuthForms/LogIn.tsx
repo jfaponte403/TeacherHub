@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import  { isValidEmail } from "../../utils/inputValidators";
 import { showAlert } from "../../utils/alertPrompts";
 import { axiosInstance, postData } from "../../api";
+import {jwtDecode} from "jwt-decode";
 
 const LogIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false)
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
@@ -19,6 +20,7 @@ const LogIn = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setLoading(true)
         if (!isValidEmail(email)) {
             showAlert(
                 {
@@ -43,7 +45,29 @@ const LogIn = () => {
             }
         ).then((response) => {
             if ( response.status === 200 ) {
-                navigate('/home-user');
+                setLoading(false)
+                if (response.data.token) {
+                    if (jwtDecode(response.data.token).user_role === "ADMIN") {
+
+                        console.log(response.data.token)
+                        console.log(
+                            jwtDecode(response.data.token)
+                        )
+
+                        console.log('admin')
+                        navigate('/home-admin')
+                    }
+                    if (jwtDecode(response.data.token).user_role === "USER") {
+
+                        console.log(response.data.token)
+                        console.log(
+                            jwtDecode(response.data.token)
+                        )
+
+                        console.log('user')
+                        navigate('/home-user');
+                    }
+                }
             }
         }).catch((error) => {
             console.log(error);
@@ -84,9 +108,15 @@ const LogIn = () => {
                 <div className="text-center m-2">
                     <button type="submit" className="btn-outline-orange btn">Log In</button>
                 </div>
+                {
+                    loading && (
+                        <div className='d-flex align-items-center justify-content-center'>
+                            <p className='text-center'>Loading...</p>
+                        </div>
+                    )
+                }
             </form>
         </div>
-
     );
 };
 
