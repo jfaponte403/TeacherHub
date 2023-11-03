@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import  { isValidEmail } from "../../utils/inputValidators";
 import { showAlert } from "../../utils/alertPrompts";
 import { axiosInstance, postData } from "../../api";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 interface DecodedToken {
     user_role: string;
