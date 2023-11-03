@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { showAlert } from "../../utils/alertPrompts";
-
+import  { isValidEmail } from "../../utils/inputValidators";
 import { axiosInstance, postData } from "../../api";
 import {useNavigate} from "react-router-dom";
 

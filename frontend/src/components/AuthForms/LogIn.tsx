@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import  { isValidEmail } from "../../utils/inputValidators";
 import { showAlert } from "../../utils/alertPrompts";
 import { axiosInstance, postData } from "../../api";
 import {jwtDecode} from "jwt-decode";
