@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import  { isValidEmail } from "../../utils/inputValidators";
 import { showAlert } from "../../utils/alertPrompts";
 import { axiosInstance, postData } from "../../api";
-import {jwtDecode} from "jwt-decode";
+import jwtDecode from "jwt-decode";
+
+interface DecodedToken {
+    user_role: string;
+}
 
 const LogIn = () => {
     const [email, setEmail] = useState("");
@@ -48,25 +52,19 @@ const LogIn = () => {
             if ( response.status === 200 ) {
                 setLoading(false)
                 if (response.data.token) {
-                    if (jwtDecode(response.data.token).user_role === "ADMIN") {
-
-                        console.log(response.data.token)
-                        console.log(
-                            jwtDecode(response.data.token)
-                        )
-
-                        console.log('admin')
-                        navigate('/home-admin')
+                    // @ts-ignore
+                    const jwtDecodedData = jwtDecode(response.data.token) as DecodedToken;
+                    if (jwtDecodedData.user_role === "ADMIN") {
+                        console.log(response.data.token);
+                        console.log(jwtDecodedData); // Usa jwtDecodedData en lugar de jwtDecode
+                        console.log("admin");
+                        navigate("/home-admin");
                     }
-                    if (jwtDecode(response.data.token).user_role === "USER") {
-
-                        console.log(response.data.token)
-                        console.log(
-                            jwtDecode(response.data.token)
-                        )
-
-                        console.log('user')
-                        navigate('/home-user');
+                    if (jwtDecodedData.user_role === "USER") {
+                        console.log(response.data.token);
+                        console.log(jwtDecodedData); // Usa jwtDecodedData en lugar de jwtDecode
+                        console.log("user");
+                        navigate("/home-user");
                     }
                 }
             }
