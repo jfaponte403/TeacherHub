@@ -3,7 +3,7 @@ import { baseApiURL } from "../constants";
 
 export const axiosInstance = axios.create({
     baseURL: baseApiURL,
-    timeout: 10000,
+    timeout: 100000,
 });
 
 /**

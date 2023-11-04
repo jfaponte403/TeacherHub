@@ -53,6 +53,7 @@ const LogIn = () => {
                 setLoading(false)
                 if (response.data.token) {
                     // @ts-ignore
+                    localStorage.setItem('token', response.data.token);
                     const jwtDecodedData = jwtDecode(response.data.token) as DecodedToken;
                     if (jwtDecodedData.user_role === "ADMIN") {
                         console.log(response.data.token);
@@ -69,6 +70,7 @@ const LogIn = () => {
                 }
             }
         }).catch((error) => {
+            setLoading(false)
             console.log(error);
             showAlert(
                 {
