@@ -8,6 +8,9 @@ import TeacherListByCourse from "../pages/Teachers-list-by-course/TeacherListByC
 import TeacherProfileByCourse from "../pages/Teacher-profile-by-course/TeacherProfileByCourse.tsx";
 import TeachersCourses from "../pages/TeachersCourses/TeachersCourses.tsx";
 import HomeAdmin from "../pages/Home-admin/HomeAdmin.tsx";
+import UsersAdmin from "../pages/Users-admin/UsersAdmin.tsx";
+import CoursesAdmin from "../pages/Courses-admin/CoursesAdmin.tsx";
+import TeachersAdmin from "../pages/Teachers-admin/TeachersAdmin.tsx";
 
 const Routers = () => {
     return(
@@ -23,6 +26,9 @@ const Routers = () => {
                 <Route path='/teachers-profile-by-course' element={<TeacherProfileByCourse />} />
                 <Route path='/teachers-courses' element={<TeachersCourses />} />
                 <Route path='/home-admin' element={<HomeAdmin />} />
+                <Route path='/users-admin' element={<UsersAdmin />} />
+                <Route path='/teachers-admin' element={<TeachersAdmin />} />
+                <Route path='/courses-admin' element={<CoursesAdmin />} />
             </Routes>
         </BrowserRouter>
     );
