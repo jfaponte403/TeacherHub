@@ -1,5 +1,5 @@
 import NavbarLogged from "../../components/NavbarLogged/NavbarLogged.tsx";
-import Teacher from "../../components/Teacher/Teacher.tsx";
+import Teacher from "../../components/Teacher/CardTeacher.tsx";
 
 const TeacherListByCourse = () => {
     return (

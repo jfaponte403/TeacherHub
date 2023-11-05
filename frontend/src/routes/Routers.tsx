@@ -3,14 +3,14 @@ import Home from "../pages/Home/Home.tsx";
 import HomeUser from "../pages/Home-user/Home-user.tsx";
 import Courses from "../pages/Courses/Courses.tsx";
 import Teachers from "../pages/Teachers/Teachers.tsx";
-import UserInfo from "../pages/User-info/userInfo.tsx";
 import TeacherListByCourse from "../pages/Teachers-list-by-course/TeacherListByCourse.tsx";
 import TeacherProfileByCourse from "../pages/Teacher-profile-by-course/TeacherProfileByCourse.tsx";
 import TeachersCourses from "../pages/TeachersCourses/TeachersCourses.tsx";
 import HomeAdmin from "../pages/Home-admin/HomeAdmin.tsx";
-import UsersAdmin from "../pages/Users-admin/UsersAdmin.tsx";
-import CoursesAdmin from "../pages/Courses-admin/CoursesAdmin.tsx";
-import TeachersAdmin from "../pages/Teachers-admin/TeachersAdmin.tsx";
+import UsersAdmin from '../pages/Users-admin/UsersAdmin.tsx';
+import TeachersAdmin from '../pages/Teachers-admin/TeachersAdmin.tsx';
+import CoursesAdmin from '../pages/Courses-admin/CoursesAdmin.tsx';
+import UserInfo from '../pages/User-info/userInfo.tsx';
 
 const Routers = () => {
     return(

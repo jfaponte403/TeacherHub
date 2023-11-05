@@ -18,7 +18,7 @@ const NavbarLogged = ({ teacher, profile, courses }: { courses: boolean, teacher
             <nav  className="navbar navbar-expand-lg bg-body-tertiary ">
                 <div className="container-fluid">
                     <NavLink to="/home-user" className="navbar-brand">
-                        <img src={isDark?logo:lightLogo} alt="TeacherHub" className="img-fluid" width={180} height={190}></img>
+                        <img src={isDark ? logo : lightLogo} alt="TeacherHub" className="img-fluid" width={180} height={190}></img>
                     </NavLink>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>

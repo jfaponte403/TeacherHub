@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("teacherhub/api/subjects")
+@CrossOrigin(origins = "*")
 @AllArgsConstructor
 public class SubjectController {
     @Autowired

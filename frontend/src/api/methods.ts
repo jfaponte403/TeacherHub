@@ -8,7 +8,7 @@ export const postData = async (axiosInstance: any, endpoint: string, data: any, 
 
 export const getData = async (axiosInstance: any, endpoint: string, headers: any) => {
     try{
-        return await axiosInstance.get(endpoint, {headers}); // Not return just the data, we want to know the status code
+        return await axiosInstance.get(endpoint, {headers: headers}); // Not return just the data, we want to know the status code
     } catch (error) {
         throw error;
     }

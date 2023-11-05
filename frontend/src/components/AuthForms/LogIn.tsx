@@ -4,10 +4,7 @@ import  { isValidEmail } from "../../utils/inputValidators";
 import { showAlert } from "../../utils/alertPrompts";
 import { axiosInstance, postData } from "../../api";
 import { jwtDecode } from "jwt-decode";
-
-interface DecodedToken {
-    user_role: string;
-}
+import { DecodedToken } from "../../interfaces/token";
 
 const LogIn = () => {
     const [email, setEmail] = useState("");
@@ -45,28 +42,19 @@ const LogIn = () => {
                 email,
                 password,
             },
-            {
-                'Content-Type': 'application/json',
-            }
-        ).then((response) => {
-            if ( response.status === 200 ) {
+            {}
+        ).then(({ data, status }) => {
+            if ( status === 200 ) {
                 setLoading(false)
-                if (response.data.token) {
-                    // @ts-ignore
-                    localStorage.setItem('token', response.data.token);
-                    const jwtDecodedData = jwtDecode(response.data.token) as DecodedToken;
-                    if (jwtDecodedData.user_role === "ADMIN") {
-                        console.log(response.data.token);
-                        console.log(jwtDecodedData); // Usa jwtDecodedData en lugar de jwtDecode
-                        console.log("admin");
-                        navigate("/home-admin");
-                    }
-                    if (jwtDecodedData.user_role === "USER") {
-                        console.log(response.data.token);
-                        console.log(jwtDecodedData); // Usa jwtDecodedData en lugar de jwtDecode
-                        console.log("user");
-                        navigate("/home-user");
-                    }
+                if (data.token) {
+                    const token = data.token;
+                    const jwtDecodedData = jwtDecode(token) as DecodedToken;
+                    localStorage.setItem('token', token);
+                    console.log(jwtDecodedData);
+
+                    // TODO: Use enums for roles
+                    if (jwtDecodedData.user_role === "ADMIN") navigate("/home-admin");
+                    if (jwtDecodedData.user_role === "USER") navigate("/home-user");
                 }
             }
         }).catch((error) => {

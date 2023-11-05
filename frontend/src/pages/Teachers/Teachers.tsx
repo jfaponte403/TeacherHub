@@ -1,25 +1,51 @@
+import { useEffect, useState } from "react";
 import NavbarLogged from "../../components/NavbarLogged/NavbarLogged.tsx";
-import Teacher from "../../components/Teacher/Teacher.tsx";
+import CardTeacher from "../../components/Teacher/CardTeacher.tsx";
+import { Teacher as ObjectTeacher } from "../../interfaces/teacher.ts";
+import { getData } from "../../api/methods.ts";
+import { axiosInstance } from "../../api/index.ts";
 
 const Teachers = () => {
+    const [teachers, setTeachers] = useState<[ObjectTeacher] | []>([]);
+    
+    useEffect(() => {
+        const fetchTeachers = () => {
+            getData(
+                axiosInstance,
+                'teacherhub/api/teachers',
+                // TODO: change the token for a token load in cookies
+                {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    'Access-Control-Allow-Origin': '*',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+    
+            ).then(({ data }) => {
+                setTeachers(data as [ObjectTeacher]);
+            }).catch((error) => {
+                console.log(error);
+            })
+        };
+
+        fetchTeachers();
+    }, [setTeachers]); 
+
     return (
         <>
             <NavbarLogged teacher={true} courses={false} profile={false} />
-            <div className="container d-flex align-items-center flex-column" style={{ minHeight: '100vh' }}>
+            <div className="container d-flex align-items-center flex-column">
                 <div className="container-search mt-4">
                     <div className="input-group">
-                        <input type="text" className="form-control mx-2" placeholder="Search your teacher" />
+                        <input type="text" className="form-control mx-2" placeholder="Search a teacher" />
                         <div className="input-group-append">
                             <button className="btn-orange btn" type="button">Search</button>
                         </div>
                     </div>
                 </div>
-                {/* Teachers list */}
-                <div className="courses-list d-flex flex-column my-3 overflow-auto" style={{ maxHeight: '400px' }}>
-                    <Teacher name="Diana martinez" description="see more" link="/teachers-courses" />
-                    <Teacher name="FuckN ardila" description="see more" link="/teachers-courses" />
-                    <Teacher name="Edilmo Carvajal" description="see more" link="/teachers-courses" />
-                    <Teacher name="Racistang" description="see more" link="/teachers-courses" />
+                <div className="courses-list d-flex flex-column my-3 overflow-auto">
+                    {teachers.length > 0 
+                        ? teachers.map(teacher => <CardTeacher key={teacher.id} teacher={teacher}/>) 
+                        : "Loading teachers..."}
                 </div>
 
             </div>
