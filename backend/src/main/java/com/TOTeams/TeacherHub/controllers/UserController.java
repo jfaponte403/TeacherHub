@@ -15,6 +15,7 @@ import com.TOTeams.TeacherHub.util.ResponseHandler;
 @RestController
 @RequestMapping("teacherhub/api/users")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserService userService;

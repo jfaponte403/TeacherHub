@@ -3,14 +3,14 @@ import Home from "../pages/Home/Home.tsx";
 import HomeUser from "../pages/Home-user/Home-user.tsx";
 import Courses from "../pages/Courses/Courses.tsx";
 import Teachers from "../pages/Teachers/Teachers.tsx";
-import UserInfo from "../pages/User-info/userInfo.tsx";
-import TeacherListByCourse from "../pages/Teachers-list-by-course/TeacherListByCourse.tsx";
-import TeacherProfileByCourse from "../pages/Teacher-profile-by-course/TeacherProfileByCourse.tsx";
-import TeachersCourses from "../pages/TeachersCourses/TeachersCourses.tsx";
+import CourseTeachers from "../pages/CourseTeachers/CourseTeachers.tsx";
+import TeacherProfileByCourse from "../pages/TeacherProfile/TeacherProfile.tsx";
+import TeachersCourses from "../pages/TeacherCourses/TeacherCourses.tsx";
 import HomeAdmin from "../pages/Home-admin/HomeAdmin.tsx";
-import UsersAdmin from "../pages/Users-admin/UsersAdmin.tsx";
-import CoursesAdmin from "../pages/Courses-admin/CoursesAdmin.tsx";
-import TeachersAdmin from "../pages/Teachers-admin/TeachersAdmin.tsx";
+import UsersAdmin from '../pages/Users-admin/UsersAdmin.tsx';
+import TeachersAdmin from '../pages/Teachers-admin/TeachersAdmin.tsx';
+import CoursesAdmin from '../pages/Courses-admin/CoursesAdmin.tsx';
+import UserInfo from '../pages/User-info/userInfo.tsx';
 
 const Routers = () => {
     return(
@@ -22,9 +22,9 @@ const Routers = () => {
                 <Route path='/courses' element={<Courses />} />
                 <Route path='/teachers' element={<Teachers />} />
                 <Route path='/user-info' element={<UserInfo />} />
-                <Route path='/teachers-list-by-course' element={<TeacherListByCourse />} />
-                <Route path='/teachers-profile-by-course' element={<TeacherProfileByCourse />} />
-                <Route path='/teachers-courses' element={<TeachersCourses />} />
+                <Route path='/course-teachers' element={<CourseTeachers />} />
+                <Route path='/teacher-profile' element={<TeacherProfileByCourse />} />
+                <Route path='/teacher-courses' element={<TeachersCourses />} />
                 <Route path='/home-admin' element={<HomeAdmin />} />
                 <Route path='/users-admin' element={<UsersAdmin />} />
                 <Route path='/teachers-admin' element={<TeachersAdmin />} />

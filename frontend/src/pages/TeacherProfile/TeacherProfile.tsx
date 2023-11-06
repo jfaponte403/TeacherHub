@@ -1,7 +1,12 @@
+import { useLocation } from "react-router-dom";
 import NavbarLogged from "../../components/NavbarLogged/NavbarLogged.tsx";
 import Comment from "../../components/comment/Comment.tsx";
+import { Course } from "../../interfaces/course.ts";
 
-const TeacherProfileByCourse = () => {
+const TeacherProfile = () => {
+
+    const { teacher, course }: {teacher: string, course: Course} = useLocation().state
+
     return (
         <>
             <NavbarLogged teacher={false} courses={false} profile={false} />
@@ -15,15 +20,15 @@ const TeacherProfileByCourse = () => {
                                 className="rounded-circle img-fluid my-2"
                                 style={{ maxWidth: '128px' }}
                             />
-                            <p className="my-2">Diana Martinez</p>
-                            <p className="my-2">Equation Differential</p>
-                            <p className="my-2">Defeat: 20%</p>
-                            <p className="my-2">Grade: 5.0 (the best teacher)</p>
+                            <p className="my-2">{teacher}</p>
+                            <p className="my-2">{course.name}</p>
+                            <p className="my-2">Defeat: </p>
+                            <p className="my-2">Grade: </p>
                         </aside>
                     </div>
                     <div className="col-md-8">
                         <div className="user-options courses-list d-flex flex-column my-3">
-                            <div>
+                            <div className="mb-5">
                                 <div className="form-group my-2">
                                     <label htmlFor="comentario">Write your review</label>
                                     <textarea className="form-control" id="comentario" rows={3} placeholder="Write your comment"></textarea>
@@ -39,9 +44,8 @@ const TeacherProfileByCourse = () => {
                                     </select>
                                     <button className="btn btn-primary mx-2">Send</button>
                                 </div>
-
-
                             </div>
+
                             <div className="comments-list">
                                 <Comment comment='Comment 1, idk what is this' />
                                 <Comment comment='Comment 2, idk what is this' />
@@ -55,4 +59,4 @@ const TeacherProfileByCourse = () => {
     );
 }
 
-export default TeacherProfileByCourse
+export default TeacherProfile

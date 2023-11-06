@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 @RestController
 @RequestMapping("teacherhub/api/teachers")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class TeacherController {
 
     private final TeacherService teacherService;
