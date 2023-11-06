@@ -2,7 +2,7 @@ export const postData = async (axiosInstance: any, endpoint: string, data: any, 
     try{
         return await axiosInstance.post(endpoint, data, {headers}); // Not return just the data, we want to know the status code
     } catch (error) {
-        throw error;
+        throw error;    
     }
 }
 

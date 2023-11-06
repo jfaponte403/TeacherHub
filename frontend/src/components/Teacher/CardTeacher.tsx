@@ -10,7 +10,7 @@ const Teacher = ({ teacher } : { teacher: ObjectTeacher }) => {
             </div>
             <div className="col-10 d-flex flex-column align-items-start">
                 <p className="fs-3"><b>{teacher.name}</b></p>
-                <Link to={teacher.id}>See his courses</Link>
+                <Link to={"/teacher-courses"} state={{ teacher }}>See his courses</Link>
             </div>
         </div>
 

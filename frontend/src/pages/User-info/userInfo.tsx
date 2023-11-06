@@ -28,14 +28,7 @@ const UserInfo = () => {
                 }
     
             ).then(({ data }) => {
-                setUser({
-                    id: data.id,
-                    username: data.nickname,
-                    email: data.email,
-                    password: data.password,
-                    is_active: data.is_active,
-                    id_role: data.id_role
-                } as UserData);
+                setUser({...data, username: data.nickname} as UserData);
             }).catch((error) => {
                 console.log(error);
             })

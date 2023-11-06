@@ -50,16 +50,14 @@ const LogIn = () => {
                     const token = data.token;
                     const jwtDecodedData = jwtDecode(token) as DecodedToken;
                     localStorage.setItem('token', token);
-                    console.log(jwtDecodedData);
 
                     // TODO: Use enums for roles
                     if (jwtDecodedData.user_role === "ADMIN") navigate("/home-admin");
                     if (jwtDecodedData.user_role === "USER") navigate("/home-user");
                 }
             }
-        }).catch((error) => {
+        }).catch(() => {
             setLoading(false)
-            console.log(error);
             showAlert(
                 {
                     icon: 'error',

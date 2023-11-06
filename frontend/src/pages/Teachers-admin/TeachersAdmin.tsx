@@ -59,9 +59,13 @@ const TeachersAdmin = () => {
         });
     }
 
-    const handleDelete = (id) => {
+    const handleDelete = (id: string) => {
         const updatedData = data.filter(item => item.id !== id);
         setData(updatedData);
+    };
+
+    const handleModify = (id: string) => {
+        console.log(id)
     };
 
     return (

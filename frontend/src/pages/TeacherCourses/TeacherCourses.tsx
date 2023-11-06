@@ -1,7 +1,12 @@
 import NavbarLogged from "../../components/NavbarLogged/NavbarLogged.tsx";
-import Course from "../../components/Course/CardCourse.tsx";
+import CardTeacherCourse from "../../components/TeacherCourse/CardTeacherCourse.tsx";
+import { useLocation } from "react-router-dom";
+import { Course as ObjectCourse } from "../../interfaces/course.ts";
 
-const TeacherProfileByCourse = () => {
+const TeacherCourses = () => {
+
+    const teacher = useLocation().state.teacher;
+
     return (
         <>
             <NavbarLogged teacher={false} courses={false} profile={false} />
@@ -15,17 +20,23 @@ const TeacherProfileByCourse = () => {
                                 className="rounded-circle img-fluid my-2"
                                 style={{ maxWidth: '128px' }}
                             />
-                            <p className="my-2">Diana Martinez</p>
-                            <p className="my-2">Equation Differential</p>
-                            <p className="my-2">Defeat: 20%</p>
-                            <p className="my-2">Grade: 5.0 (the best teacher)</p>
+                            <p className="my-2">{ teacher.name }</p>
                         </aside>
                     </div>
                     <div className="col-md-8">
                         <div className="user-options courses-list d-flex flex-column my-3 overflow-auto" style={{maxHeight: '600px'}}>
-                            <Course link="/teachers-profile-by-course" course="Integral calculus" />
-                            <Course link="/teachers-profile-by-course" course="Equations Differential" />
-                            <Course link="/teachers-profile-by-course" course="Differential calculus" />
+                            {teacher.subjects?.length > 0 
+                                ? teacher
+                                    .subjects
+                                    .map(
+                                        (course: ObjectCourse) => 
+                                            <CardTeacherCourse 
+                                                key={course.id} 
+                                                course={course}
+                                                teacher={teacher.name} 
+                                            />
+                                    ) 
+                                : "Don't have courses"}
                         </div>
                     </div>
                 </div>
@@ -34,4 +45,4 @@ const TeacherProfileByCourse = () => {
     );
 }
 
-export default TeacherProfileByCourse
+export default TeacherCourses
