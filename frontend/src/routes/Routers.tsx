@@ -11,6 +11,7 @@ import UsersAdmin from '../pages/Users-admin/UsersAdmin.tsx';
 import TeachersAdmin from '../pages/Teachers-admin/TeachersAdmin.tsx';
 import CoursesAdmin from '../pages/Courses-admin/CoursesAdmin.tsx';
 import UserInfo from '../pages/User-info/userInfo.tsx';
+import RecoveryPassword from "../pages/RecoveryPassword/RecoveryPassword.tsx";
 
 const Routers = () => {
     return(
@@ -29,6 +30,7 @@ const Routers = () => {
                 <Route path='/users-admin' element={<UsersAdmin />} />
                 <Route path='/teachers-admin' element={<TeachersAdmin />} />
                 <Route path='/courses-admin' element={<CoursesAdmin />} />
+                <Route path='/recovery-password' element={<RecoveryPassword />} />
             </Routes>
         </BrowserRouter>
     );
