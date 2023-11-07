@@ -151,15 +151,6 @@ const CoursesAdmin = () => {
         })
     }
 
-    const handleDelete = (id: string) => {
-        const updatedData = data.filter(item => item.id !== id);
-        setData(updatedData);
-    };
-
-    const handleModify = (id: string) => {
-        console.log(id)
-    };
-
     return (
         <>
             <NavbarAdmin courses={true} teacher={false} users={false} />
