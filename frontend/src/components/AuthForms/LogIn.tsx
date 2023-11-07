@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import  { isValidEmail } from "../../utils/inputValidators";
 import { showAlert } from "../../utils/alertPrompts";
 import { axiosInstance, postData } from "../../api";
@@ -51,7 +51,6 @@ const LogIn = () => {
                     const jwtDecodedData = jwtDecode(token) as DecodedToken;
                     localStorage.setItem('token', token);
 
-                    // TODO: Use enums for roles
                     if (jwtDecodedData.user_role === "ADMIN") navigate("/home-admin");
                     if (jwtDecodedData.user_role === "USER") navigate("/home-user");
                 }
@@ -94,6 +93,10 @@ const LogIn = () => {
                 </div>
                 <div className="text-center m-2">
                     <button type="submit" className="btn-outline-orange btn">Log In</button>
+
+                </div>
+                <div className='d-flex align-items-center justify-content-center'>
+                    <Link to='/recovery-password'>forget your password?</Link>
                 </div>
                 {
                     loading && (
