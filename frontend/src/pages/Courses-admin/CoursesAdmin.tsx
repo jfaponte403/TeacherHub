@@ -7,7 +7,7 @@ interface Course {
     id: string;
     name: string;
 }
-
+// asd
 const CoursesAdmin = () => {
     const [data, setData] = useState<Course[]>([]);
     const [courseToModify, setCourseToModify] = useState<Course>({
