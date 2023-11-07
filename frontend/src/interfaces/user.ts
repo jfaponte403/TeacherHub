@@ -1,13 +1,8 @@
-type role = {
-    id: number;
-    name: string;
-}
-
-interface UserData {
+export interface UserData {
     id: string;
     username: string;
     email: string;
     password: string;
     is_active: boolean;
-    role: role;
+    id_role: string;
 }

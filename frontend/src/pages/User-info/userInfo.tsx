@@ -1,9 +1,41 @@
+import { jwtDecode } from "jwt-decode";
+import { axiosInstance, getData } from "../../api/index.ts";
 import NavbarLogged from "../../components/NavbarLogged/NavbarLogged.tsx";
-import {useState} from "react";
-const  UserInfo = () => {
+import {useState, useEffect} from "react";
+import { DecodedToken } from "../../interfaces/token.ts";
+import { UserData } from "../../interfaces/user.ts";
+
+const UserInfo = () => {
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const [showNickname, setShowNickname] = useState<boolean>(false)
     const [showEmail, setShowEmail] = useState<boolean>(false)
+
+    const [user, setUser] = useState<UserData | null>(null)
+
+    useEffect(() => {
+        const fetchUser = () => {
+            const token = localStorage.getItem("token");
+            let decodedToken: DecodedToken | null = null; 
+            if (token) decodedToken = jwtDecode(token)
+
+            getData(
+                axiosInstance,
+                `teacherhub/api/users/${decodedToken?.user_id}`,
+                {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    'Access-Control-Allow-Origin': '*',
+                    'Authorization': `Bearer ${token}`
+                }
+    
+            ).then(({ data }) => {
+                setUser({...data, username: data.nickname} as UserData);
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
+
+        fetchUser()
+    }, [setUser]);
 
     const handleShowPassword = () => {
         setShowPassword(true);
@@ -42,10 +74,15 @@ const  UserInfo = () => {
                                 className="rounded-circle img-fluid my-2"
                                 style={{ maxWidth: '128px' }}
                             />
-                            <p className="my-2">Diana Martinez</p>
-                            <p className="my-2">Equation Differential</p>
-                            <p className="my-2">Defeat: 20%</p>
-                            <p className="my-2">Grade: 5.0 (the best teacher)</p>
+                            {
+                                user ? 
+                                <>
+                                    <p className="my-2">{user.username}</p>
+                                    <p className="my-2">{user.email}</p>
+                                    <p className="my-2">{user.id_role}</p>
+                                </>
+                                : <p>Loading user data...</p>  
+                            } 
                         </aside>
                     </div>
                     <div className="col-md-8">

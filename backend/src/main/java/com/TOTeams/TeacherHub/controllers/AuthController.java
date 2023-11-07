@@ -7,8 +7,8 @@ import javax.naming.AuthenticationException;
 
 import com.TOTeams.TeacherHub.security.models.*;
 import com.TOTeams.TeacherHub.util.exceptions.UserNotActiveException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class AuthController {
 
   private final AuthService authService;
@@ -53,7 +54,7 @@ public class AuthController {
         .generateResponse(
           HttpStatus.FORBIDDEN,  
           "auth/login", 
-          "Email or password incorrects"
+          "Email or password incorrect"
         );
     } catch (NoSuchElementException e) {
       return ResponseHandler
@@ -71,7 +72,8 @@ public class AuthController {
         );
     }
 
-    return ResponseEntity.ok(response);
+    return
+      ResponseEntity.ok(response);
   }
 
 
