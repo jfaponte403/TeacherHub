@@ -23,7 +23,7 @@ const Courses = () => {
             ).then(({ data }) => {
                 setCourses(data as [ObjectCourse]);
             }).catch((error) => {
-                console.log(error);
+                console.error(error);
             })
         };
 

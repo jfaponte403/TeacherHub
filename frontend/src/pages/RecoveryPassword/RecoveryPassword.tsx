@@ -71,7 +71,7 @@ const RecoveryPassword = () => {
                                     <div className="form-group">
                                         <label htmlFor="email">Type your code</label>
                                         <input
-                                            type="email"
+                                            type="text"
                                             className="form-control"
                                             id="email"
                                             onChange={(event) => {
@@ -84,7 +84,7 @@ const RecoveryPassword = () => {
                                         <input
                                             type="email"
                                             className="form-control"
-                                            id="email"
+                                            id="password"
                                             onChange={(event) => {
                                                 setPassword(event.target.value);
                                             }}

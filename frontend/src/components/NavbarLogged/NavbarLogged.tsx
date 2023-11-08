@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import { useState } from 'react';
 import logo from '../../assets/logo_nobg.png';
 import lightLogo from '../../assets/lightlogo.png'
-import '../../styles/custom-buttons.css';
 import { setTheme, isDarkTheme } from '../../helpers/themeHelper';
 
 const NavbarLogged = ({ teacher, profile, courses }: { courses: boolean, teacher: boolean, profile: boolean }) => {
