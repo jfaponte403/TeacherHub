@@ -10,6 +10,7 @@ const RecoveryPassword = () => {
     const [password, setPassword] = useState<string>('')
     const [showFormCode, setShowFormCode] = useState<boolean>(false)
     const navigate = useNavigate()
+    // asd
     const handlerRecoveryPassword = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         postData(
