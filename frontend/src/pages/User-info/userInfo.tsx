@@ -30,7 +30,7 @@ const UserInfo = () => {
             ).then(({ data }) => {
                 setUser({...data, username: data.nickname} as UserData);
             }).catch((error) => {
-                console.log(error);
+                console.error(error);
             })
         }
 

@@ -23,7 +23,7 @@ const Teachers = () => {
             ).then(({ data }) => {
                 setTeachers(data as [ObjectTeacher]);
             }).catch((error) => {
-                console.log(error);
+                console.error(error);
             })
         };
 
@@ -47,7 +47,6 @@ const Teachers = () => {
                         ? teachers.map(teacher => <CardTeacher key={teacher.id} teacher={teacher}/>) 
                         : "Loading teachers..."}
                 </div>
-
             </div>
         </>
     );

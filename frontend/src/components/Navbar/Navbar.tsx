@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import logo from '../../assets/logo_nobg.png';
 import lightLogo from '../../assets/lightlogo.png'
-import '../../styles/custom-buttons.css';
 import { setTheme, isDarkTheme } from '../../helpers/themeHelper';
 import {NavLink} from "react-router-dom";
 
