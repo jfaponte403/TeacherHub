@@ -1,5 +1,5 @@
 CREATE DATABASE teacherhub;
-CREATE TABLE professor (
+CREATE TABLE teacher (
     id VARCHAR(36) NOT NULL PRIMARY KEY,
     name VARCHAR(180)
 );
