@@ -1,62 +1,48 @@
-CREATE SCHEMA teacherhub;
-
-SET SCHEMA 'teacherhub';
-
-
--- SQLINES LICENSE FOR EVALUATION USE ONLY
+CREATE DATABASE teacherhub;
 CREATE TABLE professor (
-    id_professor BYTEA PRIMARY KEY,
-    first_name VARCHAR(50),
-    last_name VARCHAR(50)
+    id VARCHAR(36) NOT NULL PRIMARY KEY,
+    name VARCHAR(180)
 );
 
--- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE subject (
-    id_subject BYTEA PRIMARY KEY,
-    name VARCHAR(50)
+    id_subject VARCHAR(36) NOT NULL PRIMARY KEY,
+    name VARCHAR(50) UNIQUE
 );
 
--- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE professor_subject (
-    id BYTEA PRIMARY KEY,
-    id_professor BYTEA,
-    id_subject BYTEA,
-    FOREIGN KEY (id_professor) REFERENCES professor (id_professor),
-    FOREIGN KEY (id_subject) REFERENCES subject (id_subject)
+    id VARCHAR(36) NOT NULL PRIMARY KEY,
+    id_professor VARCHAR(36) REFERENCES professor ON DELETE CASCADE,
+    id_subject VARCHAR(36) REFERENCES subject ON DELETE CASCADE,
+    teacher_subject_id VARCHAR(36),
+    CONSTRAINT fkne476kmtxd9kekl4lpd79or1y UNIQUE (teacher_subject_id)
 );
-
 CREATE TABLE role (
-  id INT PRIMARY KEY,
-  role VARCHAR(50)
+    id SERIAL PRIMARY KEY,
+    role VARCHAR(50)
 );
 
--- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE student (
-    id_student BYTEA PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    email varchar(255) NOT NULL,
-    password varchar(255) NOT NULL,
-    hash varchar(16) NOT NULL,
-    is_active boolean,
-    id_role INT,
-    FOREIGN KEY (id_role) REFERENCES role (id)
+    id_student VARCHAR(36) NOT NULL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    hash VARCHAR(16) NOT NULL,
+    is_active BOOLEAN,
+    id_role INTEGER REFERENCES role ON DELETE CASCADE
 );
 
 CREATE TABLE auth_code (
-  id_student BYTEA PRIMARY KEY,
-  date_time timestamp NOT NULL,
-  code varchar(6) NOT NULL,
-  FOREIGN KEY (id_student) REFERENCES student (id_student)
+    id_student VARCHAR(36) NOT NULL PRIMARY KEY REFERENCES student ON DELETE CASCADE,
+    date_time TIMESTAMP NOT NULL,
+    code VARCHAR(6) NOT NULL
 );
 
--- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE grade (
-    id BYTEA PRIMARY KEY,
-    id_student BYTEA,
-    id_professor_subject BYTEA,
-    comment text,
-    is_positive boolean,
-    note int,
-    FOREIGN KEY (id_student) REFERENCES student (id_student),
-    FOREIGN KEY (id_professor_subject) REFERENCES professor_subject(id)
+    id VARCHAR(36) NOT NULL PRIMARY KEY,
+    id_student VARCHAR(36) REFERENCES student ON DELETE CASCADE,
+    id_professor_subject VARCHAR(36) REFERENCES professor_subject ON DELETE CASCADE,
+    comment TEXT,
+    is_positive BOOLEAN,
+    note REAL,
+    id_professor BOOLEAN NOT NULL
 );
