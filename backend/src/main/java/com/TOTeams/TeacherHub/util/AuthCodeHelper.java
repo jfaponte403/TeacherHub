@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.security.SecureRandom;
 
 @Component
-public class AuthCodes {
+public class AuthCodeHelper {
     public String generateCode() {
         String characters = "0123456789";
 

@@ -1,19 +1,19 @@
 package com.TOTeams.TeacherHub.models.requests;
 
-import com.TOTeams.TeacherHub.models.Teacher;
+import com.TOTeams.TeacherHub.models.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubjectRequest {
-    String id;
-    String name;
-    List<Teacher> teachers;
+public class StudentRequest {
+  String id;
+  String nickname;
+  String email;
+  int idRole;
+  boolean active;
 }

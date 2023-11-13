@@ -2,6 +2,7 @@ package com.TOTeams.TeacherHub.services;
 
 import com.TOTeams.TeacherHub.models.Role;
 import com.TOTeams.TeacherHub.models.User;
+import com.TOTeams.TeacherHub.models.requests.StudentRequest;
 import com.TOTeams.TeacherHub.repositories.UserRespository;
 import com.TOTeams.TeacherHub.models.responses.StudentResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,8 @@ public class UserService {
                     .id(u.getId())
                     .nickname(u.getNickname())
                     .email(u.getEmail())
-                    .id_role(u.getId_role().getValue())
-                    .is_active(u.is_active())
+                    .role(u.getRole())
+                    .active(u.getActive())
                     .build()
             );
         }
@@ -41,19 +42,23 @@ public class UserService {
                 .id(u.getId())
                 .nickname(u.getNickname())
                 .email(u.getEmail())
-                .id_role(u.getId_role().getValue())
-                .is_active(u.is_active())
+                .role(u.getRole())
+                .active(u.getActive())
                 .build();
     }
 
-    public boolean updateStudent(StudentResponse student) {
+    public boolean updateStudent(StudentRequest student) {
         User u = userRepository.findById(student.getId()).orElseThrow();
         u.setNickname(student.getNickname());
         u.setEmail(student.getEmail());
-        u.setId_role(Role.fromValue(student.getId_role()));
-        u.setIs_active(student.is_active());
-        userRepository.save(u);
-        return true;
+        u.setRole(Role.fromValue(student.getIdRole()));
+        u.setActive(student.isActive());
+        try {
+            userRepository.save(u);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean deleteUser(String id) {

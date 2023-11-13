@@ -3,6 +3,7 @@ package com.TOTeams.TeacherHub.models;
 import java.util.Collection;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,53 +42,60 @@ public class User implements UserDetails {
   @Column(nullable = false)
   String email;
   
-  @Column(nullable = false)
-  Role id_role;
+  @Column(name = "id_role", nullable = false)
+  @JsonBackReference
+  Role role;
 
   @Column(name = "password", nullable = false)
   String password;
 
   @Column
+  @JsonBackReference
   String hash;
 
   @Column(name = "is_active", nullable = false )
-  boolean is_active;
+  @JsonBackReference
+  Boolean active;
 
   @Override
+  @JsonBackReference
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of(new SimpleGrantedAuthority("ROLE_" + id_role.name()));
+    return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
   }
 
   @Override
+  @JsonBackReference
   public String getPassword() {
     return this.password;
   }
 
   @Override
+  @JsonBackReference
   public String getUsername() {
     return this.email;
   }
 
   @Override
+  @JsonBackReference
   public boolean isAccountNonExpired() {
     return true;
   }
 
   @Override
+  @JsonBackReference
   public boolean isAccountNonLocked() {
     return true;
   }
 
   @Override
+  @JsonBackReference
   public boolean isCredentialsNonExpired() {
     return true;
   }
 
   @Override
+  @JsonBackReference
   public boolean isEnabled() {
     return true;
-  }
-
-  public void setIs_active(boolean b) {
   }
 }

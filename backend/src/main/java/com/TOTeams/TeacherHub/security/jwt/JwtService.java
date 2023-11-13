@@ -35,7 +35,7 @@ public class JwtService {
     Date experationDate = new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24);
 
     extraClaim.put("user_id", user.getId());
-    extraClaim.put("user_role", user.getId_role());
+    extraClaim.put("user_role", user.getRole().name());
 
     return Jwts
       .builder()

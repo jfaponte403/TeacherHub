@@ -17,6 +17,7 @@ public class EmailSender {
 
     public void sendEmail(String emailAdress, String subject, String body){
         SimpleMailMessage mail = new SimpleMailMessage();
+        
         mail.setTo(emailAdress);
         mail.setSubject(subject);
         mail.setText(body);

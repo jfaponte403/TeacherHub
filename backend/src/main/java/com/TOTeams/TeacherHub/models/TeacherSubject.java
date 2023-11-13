@@ -1,5 +1,6 @@
 package com.TOTeams.TeacherHub.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,10 +25,12 @@ public class TeacherSubject {
 
   @ManyToOne()
   @JoinColumn(name = "id_professor")
+  @JsonBackReference
   Teacher teacher;
 
   @ManyToOne
   @JoinColumn(name = "id_subject")
+  @JsonBackReference
   Subject subject;
 
 }

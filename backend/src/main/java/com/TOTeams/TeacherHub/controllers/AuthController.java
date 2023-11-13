@@ -87,7 +87,7 @@ public class AuthController {
       request.getPassword(),
       request.getNickname()
     ).allMatch(value ->
-      value != null && (value instanceof String && !((String) value).isEmpty())
+      value != null && !value.isEmpty()
     );
 
     if (!allNeedFields) 
@@ -110,7 +110,7 @@ public class AuthController {
         );
     }
 
-    authCodeService.registerCode(request.getId().toString());
+    authCodeService.registerCode(request.getId());
 
     return ResponseHandler
       .generateResponse(
