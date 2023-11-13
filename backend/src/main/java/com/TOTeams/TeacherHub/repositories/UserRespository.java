@@ -15,7 +15,7 @@ public interface UserRespository extends JpaRepository<User, String> {
    Optional<String> findHashByEmail(String email);
 
    @Modifying
-   @Query("UPDATE User u SET u.is_active = ?2 WHERE u.id = ?1")
+   @Query("UPDATE User u SET u.active = ?2 WHERE u.id = ?1")
    int findByIdAndActive(String id, boolean active);
 
 }

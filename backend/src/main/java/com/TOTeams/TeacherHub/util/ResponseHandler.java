@@ -24,9 +24,9 @@ public class ResponseHandler {
     Map<String, Object> response = new HashMap<String, Object>();
 
     response.put("status", status.value());
-    response.put("error", status.getReasonPhrase());
+    response.put("message", status.getReasonPhrase());
     response.put("path", path);
-    response.put("message", message);    
+    response.put("description", message);
 
     return new ResponseEntity<Object>(response, status);
   }

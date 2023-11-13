@@ -1,5 +1,6 @@
 package com.TOTeams.TeacherHub.models.responses;
 
+import com.TOTeams.TeacherHub.models.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,6 @@ public class StudentResponse {
     String id;
     String nickname;
     String email;
-    int id_role;
-    boolean is_active;
+    Role role;
+    boolean active;
 }

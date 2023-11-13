@@ -29,7 +29,7 @@ public class Teacher {
     @Column(name = "name", nullable = false)
     String name;
 
-    @ManyToMany()
+    @ManyToMany
     @JsonBackReference
     @JoinTable(
         name = "professor_subject",

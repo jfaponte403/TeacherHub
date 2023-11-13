@@ -26,6 +26,7 @@ public class SubjectService {
                     .builder()
                     .id(s.getId())
                     .name(s.getName())
+                    .teachers(s.getTeachers())
                     .build()
             );
         }

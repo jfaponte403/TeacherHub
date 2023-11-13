@@ -34,7 +34,7 @@ public class AuthService {
   public AuthResponse login(LoginRequest request) throws AuthenticationException, UserNotActiveException {
     User user = userRespository.findByEmail(request.getEmail()).orElseThrow();
 
-    if (!user.is_active()) throw new UserNotActiveException();
+    if (!user.getActive()) throw new UserNotActiveException();
 
     authenticationManager
       .authenticate(
@@ -60,9 +60,9 @@ public class AuthService {
       .nickname(request.getNickname())
       .email(request.getEmail())
       .password(passwordEncoder.encode(hash + request.getPassword()))
-      .id_role(Role.USER)
+      .role(Role.USER)
       .hash(hash)
-      .is_active(false)
+      .active(false)
       .build();
 
     try {

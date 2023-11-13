@@ -1,6 +1,6 @@
 package com.TOTeams.TeacherHub.services;
 
-import com.TOTeams.TeacherHub.util.AuthCodes;
+import com.TOTeams.TeacherHub.util.AuthCodeHelper;
 import com.TOTeams.TeacherHub.util.EmailSender;
 import com.TOTeams.TeacherHub.models.Code;
 import com.TOTeams.TeacherHub.models.User;
@@ -9,10 +9,10 @@ import com.TOTeams.TeacherHub.repositories.UserRespository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -21,30 +21,29 @@ public class AuthCodeService {
     @Autowired
     private final CodeRepository authCodeRepository;
     private final UserRespository userRespository;
-    private final AuthCodes authCodes;
+    private final AuthCodeHelper authCodeHelper;
     private final EmailSender emailSender;
     private final PasswordEncoder passwordEncoder;
 
 
     public boolean registerCode(String studentId) {
-        String code = authCodes.generateCode();
-        Code authCode = Code.builder()
-                .id_student(studentId)
-                .code(code)
-                .date_time(java.time.LocalDateTime.now())
-                .build();
-        try{
-            authCodeRepository.deleteByIdStudent(studentId);
-            authCodeRepository.save(authCode);
-        } catch (DataIntegrityViolationException e) {
-            throw e;
-        }
-        emailSender.sendEmail(
-                userRespository.findById(studentId).get().getEmail(),
-                "Verification code",
-                "Your verification code is: " + code
-        );
+        String code = authCodeHelper.generateCode();
 
+        Code authCode = Code
+            .builder()
+            .id_student(studentId)
+            .code(code)
+            .date_time(LocalDateTime.now())
+            .build();
+
+        authCodeRepository.deleteByIdStudent(studentId);
+        authCodeRepository.save(authCode);
+
+        emailSender.sendEmail(
+            userRespository.findById(studentId).get().getEmail(),
+            "[TeacherHub]: Verification code",
+            "Your verification code is: " + code
+        );
 
         return true;
     }
@@ -56,7 +55,7 @@ public class AuthCodeService {
         if (authCode.isPresent() && authCode.get().getCode().equals(codeToVerify)) {
             User student = userRespository.findById(studentId).orElse(null);
             if (student != null) {
-                student.setIs_active(true);
+                student.setActive(true);
                 return userRespository.findByIdAndActive(student.getId(), true) == 1;
             }
         }
