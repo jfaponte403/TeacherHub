@@ -52,7 +52,7 @@ public class UserService {
         u.setNickname(student.getNickname());
         u.setEmail(student.getEmail());
         u.setRole(Role.fromValue(student.getIdRole()));
-        u.setActive(student.isActive());
+        u.setActive(student.getActive());
         try {
             userRepository.save(u);
             return true;
