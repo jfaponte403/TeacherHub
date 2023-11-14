@@ -15,5 +15,5 @@ public class StudentRequest {
   String nickname;
   String email;
   int idRole;
-  boolean active;
+  Boolean active;
 }

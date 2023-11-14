@@ -50,7 +50,7 @@ public class UserController {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (user.getRole() != Role.ADMIN) {
-            if (user.getId().equals(student.getId()))
+            if (!user.getId().equals(student.getId()))
                 return ResponseHandler
                     .generateResponse(
                         HttpStatus.FORBIDDEN,
@@ -63,7 +63,7 @@ public class UserController {
             student.getId(),
             student.getNickname(),
             student.getEmail(),
-            String.valueOf(student.isActive())
+            student.getActive().toString()
         ).allMatch(value -> value != null && !value.isEmpty());
 
         boolean validIdRole = (student.getIdRole() > 0 && student.getIdRole() < Role.values().length);

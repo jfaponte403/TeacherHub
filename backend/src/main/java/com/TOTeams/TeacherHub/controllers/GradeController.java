@@ -31,6 +31,21 @@ public class GradeController {
     return ResponseEntity.ok(gradeService.getGrades());
   }
 
+  @GetMapping("/{idTeacherSubject}")
+  public ResponseEntity<Object> getGradesByIdTeacherSubject(@PathVariable String idTeacherSubject) {
+    try {
+      return ResponseEntity.ok(gradeService.getGradesByIdTeacherSubject(idTeacherSubject));
+    } catch (NoSuchElementException e) {
+      return
+        ResponseHandler
+          .generateResponse(
+            HttpStatus.NOT_FOUND,
+            "grades/get",
+            "[Error]: " + e.getMessage()
+          );
+    }
+  }
+
   @PostMapping
   public ResponseEntity<Object> createGrade(@RequestBody GradeRequest grade) {
     String path = "grades/post";
@@ -85,7 +100,7 @@ public class GradeController {
           .generateResponse(
             HttpStatus.INTERNAL_SERVER_ERROR,
             path,
-            "An error has occurred"
+            "An error has occurred. [ERROR]: " + e.getMessage()
           );
     }
 
