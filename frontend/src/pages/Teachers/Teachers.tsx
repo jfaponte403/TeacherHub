@@ -21,6 +21,7 @@ const Teachers = () => {
                 }
     
             ).then(({ data }) => {
+                console.log(data)
                 setTeachers(data as [ObjectTeacher]);
             }).catch((error) => {
                 console.error(error);

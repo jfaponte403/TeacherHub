@@ -1,14 +1,40 @@
 
-const Comment = ({ comment }: { comment: string } ) => {
-    return (
-        <div className="row justify-content-center my-2">
-            <div className="col-10 overflow-x-hidden">
-                <div className="border p-3">
-                    <p className="font-weight-bold"> {comment} </p>
-                </div>
-            </div>
-        </div>
-    );
+interface Student {
+    id: string;
+    nickname: string;
+    email: string;
 }
 
-export default Comment;
+interface Comment {
+    id: string;
+    student: Student;
+    comment: string;
+    isPositive: boolean;
+    note: number;
+}
+
+
+
+const CardComment = ({ comment }: { comment: Comment } ) => {
+    return (
+        <div className="card p-3 mb-3">
+            <p className="mb-1">
+                <strong>{comment.student.nickname}</strong>
+            </p>
+
+            <p className="m-2">
+                {comment.comment}
+            </p>
+
+            <p className="mb-1">
+                <strong>Nota:</strong> {comment.note}
+            </p>
+
+            <p className="mb-0">
+                <strong>Es positivo:</strong> {comment.isPositive ? 'Sí' : 'No'}
+            </p>
+        </div>
+    );
+};
+
+export default CardComment;

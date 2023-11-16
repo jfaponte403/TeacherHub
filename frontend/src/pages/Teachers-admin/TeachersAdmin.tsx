@@ -271,6 +271,7 @@ const TeachersAdmin = () => {
                         <th>Subjects</th>
                         <th>Modify</th>
                         <th>Delete</th>
+                        <th>Add</th> {/* Nueva columna para el botón + */}
                     </tr>
                     </thead>
                     <tbody>
@@ -287,8 +288,8 @@ const TeachersAdmin = () => {
                             <td>
                                 <button
                                     className="btn btn-primary"
-                                    onClick={()=>{
-                                        handlerShowForm(teachers)
+                                    onClick={() => {
+                                        handlerShowForm(teachers);
                                     }}
                                 >
                                     Modify
@@ -297,17 +298,28 @@ const TeachersAdmin = () => {
                             <td>
                                 <button
                                     className="btn btn-danger"
-                                    onClick={()=>{
-                                        deleteTeacher(teachers.id)
+                                    onClick={() => {
+                                        deleteTeacher(teachers.id);
                                     }}
                                 >
                                     Delete
+                                </button>
+                            </td>
+                            <td>
+                                <button
+                                    className="btn btn-success"
+                                    onClick={() => {
+                                        alert('add course to teacher')
+                                    }}
+                                >
+                                    +
                                 </button>
                             </td>
                         </tr>
                     ))}
                     </tbody>
                 </table>
+
 
                 <div className="text-center mt-4">
                     <button className="btn btn-outline-orange" onClick={handlerShowFormToCreate}>Create</button>
