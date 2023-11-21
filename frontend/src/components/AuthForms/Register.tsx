@@ -3,7 +3,7 @@ import { showAlert } from "../../utils/alertPrompts";
 import  { isValidEmail } from "../../utils/inputValidators";
 import { axiosInstance, postData } from "../../api";
 import {useNavigate} from "react-router-dom";
-
+import "../../styles/login.css"
 const Register = () => {
     const [email, setEmail] = useState("");
     const [nickname, setNickname] = useState("");
@@ -122,51 +122,57 @@ const Register = () => {
     }
 
     return (
-        <div className="d-flex justify-content-center align-items-center mx-5 my-1">
+        <div className="container">
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="email">Email:</label>
+                <div className="form_group">
+
                     <input
                         type="email"
-                        className="form-control"
+                        className="form_input"
                         id="email"
+                        placeholder=" "
                         value={email}
                         onChange={handleEmailChange}
                     />
+                    <label className='form_label'>Email</label>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="nickname">Nickname:</label>
+                <div className="form_group">
+
                     <input
                         type="text"
-                        className="form-control"
+                        className="form_input"
                         id="nickname"
+                        placeholder=" "
                         value={nickname}
                         onChange={handleNicknameChange}
                     />
+                    <label className='form_label'>Nickname</label>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password:</label>
+                <div className="form_group">
+
                     <input
                         type="password"
-                        className="form-control"
+                        className="form_input"
                         id="password"
+                        placeholder=" "
                         value={password}
                         onChange={handlePasswordChange}
                     />
+                    <label className='form_label'>Password</label>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="confirmPassword">Confirm Password:</label>
+                <div className="form_group">
+
                     <input
                         type="password"
-                        className="form-control"
+                        className="form_input"
                         id="confirmPassword"
+                        placeholder=" "
                         value={confirmPassword}
                         onChange={handleConfirmPasswordChange}
                     />
+                    <label className='form_label'>Confirm Password</label>
                 </div>
-                <div className="text-center m-2">
-                    <button type="submit" className="btn-outline-orange btn">Register</button>
-                </div>
+                    <button type="submit" className="form_button">Register</button>
                 {
                     loading && (
                         <div className='d-flex align-items-center justify-content-center'>
@@ -191,7 +197,7 @@ const Register = () => {
                                         <p>Type the Confirmation code</p>
                                         <input
                                             type="text"
-                                            className="form-control"
+                                            className="form_input"
                                             placeholder="code"
                                             onChange={handleCode}
                                         />

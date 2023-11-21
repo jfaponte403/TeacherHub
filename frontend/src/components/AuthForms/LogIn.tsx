@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {Link, useNavigate} from "react-router-dom";
 import  { isValidEmail } from "../../utils/inputValidators";
 import { showAlert } from "../../utils/alertPrompts";
 import { axiosInstance, postData } from "../../api";
 import { jwtDecode } from "jwt-decode";
 import { DecodedToken } from "../../interfaces/token";
-
+import { isDarkTheme } from "../../helpers/themeHelper.ts";
+import "../../styles/login.css"
 const LogIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -15,6 +16,9 @@ const LogIn = () => {
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     };
+    useEffect(() => {
+        updateStyles();
+    }, []);
 
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
@@ -67,34 +71,40 @@ const LogIn = () => {
             )
         })
     };
-
+    const updateStyles = () => {
+        const container = document.querySelector(".container");
+        if (container) {
+            container.classList.toggle("dark-theme", isDarkTheme());
+            container.classList.toggle("light-theme", !isDarkTheme());
+        }
+    };
     return (
-        <div className="d-flex justify-content-center align-items-center mx-5 my-1">
+        <div className='container'>
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="email">Email:</label>
+                <div className="form_group">
                     <input
                         type="email"
-                        className="form-control"
+                        className="form_input"
                         id="email"
+                        placeholder=" "
                         value={email}
                         onChange={handleEmailChange}
                     />
+                    <label className="form_label">Email</label>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password:</label>
+                <div className="form_group">
                     <input
                         type="password"
-                        className="form-control"
+                        className="form_input"
                         id="password"
+                        placeholder=" "
                         value={password}
                         onChange={handlePasswordChange}
                     />
+                    <label className="form_label">Password</label>
                 </div>
-                <div className="text-center m-2">
-                    <button type="submit" className="btn-outline-orange btn">Log In</button>
 
-                </div>
+                    <button type="submit" className="form_button">Log In</button>
                 <div className='d-flex align-items-center justify-content-center'>
                     <Link to='/recovery-password'>forget your password?</Link>
                 </div>
