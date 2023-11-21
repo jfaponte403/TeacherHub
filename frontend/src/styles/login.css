@@ -1,0 +1,59 @@
+
+
+.init {
+    top: 20px;
+    position: relative;
+    width: 360px;
+    height: auto;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: .8rem;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form_group {
+    position: relative;
+    --color: #5757577e;
+    margin-bottom: 1.5em;
+}
+
+.form_input {
+    width: 100%;
+    background: none;
+    font-size: 1rem;
+    padding: .6em .3em;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--color);
+}
+
+.form_input:focus + .form_label, .form_input:not(:placeholder-shown) + .form_label {
+    transform: translateY(-14px) scale(.8);
+    transform-origin: left top;
+    color: #f57c00;
+}
+
+.form_label {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 5px;
+    transform: translateY(10px);
+    transition: transform .5s, color .3s;
+}
+
+.form_button {
+    position: relative;
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px;
+    margin-top: 30px;
+    border: none;
+    border-radius: .5em;
+    background-color: #ffa500;
+    color: #fff;
+    cursor: pointer;
+}
