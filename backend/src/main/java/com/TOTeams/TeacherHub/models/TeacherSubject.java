@@ -23,14 +23,12 @@ public class TeacherSubject {
   @Column(name = "id", columnDefinition = "varchar(36)")
   String id;
 
-  @ManyToOne()
+  @ManyToOne
   @JoinColumn(name = "id_professor")
-  @JsonBackReference
   Teacher teacher;
 
   @ManyToOne
   @JoinColumn(name = "id_subject")
-  @JsonBackReference
   Subject subject;
 
 }

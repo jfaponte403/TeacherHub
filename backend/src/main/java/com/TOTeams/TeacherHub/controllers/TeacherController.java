@@ -1,10 +1,13 @@
 package com.TOTeams.TeacherHub.controllers;
 
+import com.TOTeams.TeacherHub.models.Teacher;
 import com.TOTeams.TeacherHub.models.requests.TeacherRequest;
 import com.TOTeams.TeacherHub.models.responses.TeacherResponse;
 import com.TOTeams.TeacherHub.services.TeacherService;
 import com.TOTeams.TeacherHub.util.ResponseHandler;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,17 +25,21 @@ public class TeacherController {
     private final TeacherService teacherService;
 
     @GetMapping
-    public ResponseEntity<Object> getAllTeachers() {
-        List<TeacherResponse> teachers = teacherService.getAllTeachers();
+    public ResponseEntity<Object> getAllTeachers(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size
+    ) {
+        Page<TeacherResponse> teachers = teacherService.getAllTeachers(PageRequest.of(page, size));
+
         if(teachers.isEmpty())
             return ResponseHandler
                 .generateResponse(
                     HttpStatus.NOT_FOUND,
                     "teachers",
-                    "There are no teachers"
+                    "There aren´t teachers"
                 );
 
-        return ResponseEntity.ok(teachers);
+        return ResponseEntity.ok(teachers.getContent());
     }
 
     @GetMapping("/{id}")

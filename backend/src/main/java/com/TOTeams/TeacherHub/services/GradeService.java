@@ -4,9 +4,10 @@ import com.TOTeams.TeacherHub.models.Grade;
 import com.TOTeams.TeacherHub.models.responses.GradeByIdTeacherSubjectResponse;
 import com.TOTeams.TeacherHub.repositories.GradeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,19 +19,19 @@ public class GradeService {
 
   private final GradeRepository gradeRepository;
 
-  public List<Grade> getGrades() {
-    return gradeRepository.findAll();
+  public Page<Grade> getGrades(Pageable pageable) {
+    return gradeRepository.findAll(pageable);
   }
 
   public Grade getGradeByIdStudentAndIdTeacherSubject(String idStudent, String idTeacherSubject) {
     return gradeRepository.findByStudentIdAndTeacherSubjectId(idStudent, idTeacherSubject).orElse(null);
   }
 
-  public List<GradeByIdTeacherSubjectResponse> getGradesByIdTeacherSubject(String idTeacherSubject) {
-    List<Grade> grades = gradeRepository.findByTeacherSubjectId(idTeacherSubject).orElseThrow();
+  public Page<GradeByIdTeacherSubjectResponse> getGradesByIdTeacherSubject(String idTeacherSubject, Pageable pageable) {
+    Page<Grade> grades = gradeRepository.findByTeacherSubjectId(idTeacherSubject, pageable);
     List<GradeByIdTeacherSubjectResponse> response = new ArrayList<>();
 
-    for (Grade grade : grades) {
+    for (Grade grade : grades.getContent()) {
       response.add(
         GradeByIdTeacherSubjectResponse
           .builder()
@@ -43,7 +44,7 @@ public class GradeService {
       );
     }
 
-    return response;
+    return new PageImpl<>(response, pageable, response.size());
   }
 
   public Boolean createGrade(Grade grade) {

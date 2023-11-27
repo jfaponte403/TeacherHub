@@ -6,6 +6,9 @@ import com.TOTeams.TeacherHub.models.requests.StudentRequest;
 import com.TOTeams.TeacherHub.repositories.UserRespository;
 import com.TOTeams.TeacherHub.models.responses.StudentResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,9 +19,9 @@ import java.util.List;
 public class UserService {
     private final UserRespository userRepository;
 
-    public List<StudentResponse> getAllUsers() {
+    public Page<StudentResponse> getAllUsers(Pageable pageable) {
         List<StudentResponse> users = new ArrayList<>();
-        for(User u : userRepository.findAll()) {
+        for(User u : userRepository.findAll(pageable).getContent()) {
             users.add(
                 StudentResponse
                     .builder()
@@ -31,7 +34,7 @@ public class UserService {
             );
         }
 
-        return users;
+        return new PageImpl<>(users, pageable, users.size());
     }
 
     public StudentResponse getUserById(String id) {

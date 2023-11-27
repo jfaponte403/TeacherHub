@@ -4,6 +4,7 @@ import com.TOTeams.TeacherHub.models.requests.SubjectRequest;
 import com.TOTeams.TeacherHub.util.ResponseHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,8 +21,11 @@ public class SubjectController {
     @Autowired
     private final SubjectService subjectService;
     @GetMapping
-    public List<SubjectRequest> getAllSubjects() {
-        return subjectService.getAllSubjects();
+    public ResponseEntity<Object> getAllSubjects(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(subjectService.getAllSubjects(PageRequest.of(page, size)).getContent());
     }
 
     @GetMapping("/{id}")
