@@ -12,7 +12,7 @@ import TeachersAdmin from '../pages/Teachers-admin/TeachersAdmin.tsx';
 import CoursesAdmin from '../pages/Courses-admin/CoursesAdmin.tsx';
 import UserInfo from '../pages/User-info/userInfo.tsx';
 import RecoveryPassword from "../pages/RecoveryPassword/RecoveryPassword.tsx";
-import PdfGenerator from "../pages/Pdf-Generator/PdfGenerator.tsx";
+
 
 const Routers = () => {
     return(
