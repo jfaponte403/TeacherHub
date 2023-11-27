@@ -18,9 +18,7 @@ const Courses = () => {
                     'Content-Type': 'application/json;charset=UTF-8',
                     'Access-Control-Allow-Origin': '*',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
-
                 }
-    
             ).then(({ data }) => {
                 setCourses(data as [ObjectCourse]);
             }).catch((error) => {
