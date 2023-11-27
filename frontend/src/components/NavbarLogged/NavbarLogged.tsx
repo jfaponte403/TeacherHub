@@ -4,7 +4,7 @@ import logo from '../../assets/logo_nobg.png';
 import lightLogo from '../../assets/lightlogo.png'
 import { setTheme, isDarkTheme } from '../../helpers/themeHelper';
 
-const NavbarLogged = ({ teacher, profile, courses }: { courses: boolean, teacher: boolean, profile: boolean }) => {
+const NavbarLogged = ({ teacher, profile, courses}: { courses: boolean, teacher: boolean, profile: boolean, pdf: boolean }) => {
     const [isDark, setIsDark] = useState<boolean>(isDarkTheme());
 
     const handleButtonClick = () => {
@@ -41,7 +41,6 @@ const NavbarLogged = ({ teacher, profile, courses }: { courses: boolean, teacher
                                 </li>
                             </ul>
                         </div>
-
                         <ul className="navbar-nav ">
                             <button onClick={handleButtonClick} className="btn rounded-fill">
                                 { isDark ? <i className="bi bi-moon-fill"></i> : <i className="bi bi-sun-fill" style={{color: "yellow"}}></i>}

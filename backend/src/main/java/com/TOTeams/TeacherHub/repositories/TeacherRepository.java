@@ -14,16 +14,4 @@ import java.util.Optional;
 public interface TeacherRepository extends JpaRepository<Teacher, String>{
     Optional<Teacher> findById(String id);
 
-    /*@Query("SELECT p FROM professor p WHERE p.id IN (SELECT id_professor FROM professor_subject WHERE id_subject = ?1)")
-    List<Teacher> listBySubjectId(String subjectId);
-
-    @Modifying
-    @Query(value = "INSERT INTO subject_professor(id, id_professor, id_subject) VALUES (?1, ?3, ?2)", nativeQuery = true)
-    @Transactional
-    public void enrollTeacher(String id, String subjectId, String teacherId);
-
-    @Modifying
-    @Query(value = "DELETE FROM subject_professor WHERE id_subject = ?1 AND id_professor = ?2", nativeQuery = true)
-    @Transactional
-    public void unenrollTeacher(String subjectId, String teacherId);*/
 }

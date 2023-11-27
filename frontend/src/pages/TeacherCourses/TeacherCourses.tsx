@@ -31,9 +31,9 @@ const TeacherCourses = () => {
                                     .map(
                                         (course: ObjectCourse) => 
                                             <CardTeacherCourse 
-                                                key={course.id} 
+                                                key={course.id}
                                                 course={course}
-                                                teacher={teacher.name} 
+                                                teacher={teacher.name}
                                             />
                                     ) 
                                 : "Don't have courses"}
