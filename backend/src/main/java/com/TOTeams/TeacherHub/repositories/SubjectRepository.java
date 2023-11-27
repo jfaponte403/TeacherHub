@@ -8,7 +8,4 @@ import com.TOTeams.TeacherHub.models.Subject;
 
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, String> {
-//    @Query(value = "SELECT * FROM subject WHERE name = ?1", nativeQuery = true)
-//    List<Subject> findByName(String name);
-
 }

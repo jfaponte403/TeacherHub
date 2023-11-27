@@ -6,6 +6,7 @@ import com.TOTeams.TeacherHub.models.requests.StudentRequest;
 import com.TOTeams.TeacherHub.models.responses.StudentResponse;
 import com.TOTeams.TeacherHub.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,8 +28,11 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<StudentResponse> getAllUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<Object> getAllUsers(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(userService.getAllUsers(PageRequest.of(page, size)).getContent());
     }
 
     @GetMapping("/{id}")

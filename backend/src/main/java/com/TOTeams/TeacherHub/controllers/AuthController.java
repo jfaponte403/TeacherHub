@@ -8,7 +8,6 @@ import javax.naming.AuthenticationException;
 import com.TOTeams.TeacherHub.security.models.*;
 import com.TOTeams.TeacherHub.util.exceptions.UserNotActiveException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

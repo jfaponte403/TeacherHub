@@ -4,6 +4,9 @@ import com.TOTeams.TeacherHub.models.Subject;
 import com.TOTeams.TeacherHub.repositories.SubjectRepository;
 import com.TOTeams.TeacherHub.models.requests.SubjectRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,9 +21,9 @@ public class SubjectService {
         this.subjectRepository = subjectRepository;
     }
 
-    public List<SubjectRequest> getAllSubjects() {
+    public Page<SubjectRequest> getAllSubjects(Pageable pageable) {
         List<SubjectRequest> subjects = new ArrayList<>();
-        for (Subject s : subjectRepository.findAll()) {
+        for (Subject s : subjectRepository.findAll(pageable).getContent()) {
             subjects.add(
                 SubjectRequest
                     .builder()
@@ -30,7 +33,7 @@ public class SubjectService {
                     .build()
             );
         }
-        return subjects;
+        return new PageImpl<>(subjects, pageable, subjects.size());
     }
 
     public boolean createSubject(SubjectRequest subject) {

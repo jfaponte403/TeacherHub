@@ -4,8 +4,10 @@ import com.TOTeams.TeacherHub.models.Teacher;
 import com.TOTeams.TeacherHub.models.requests.TeacherRequest;
 import com.TOTeams.TeacherHub.repositories.TeacherRepository;
 import com.TOTeams.TeacherHub.models.responses.TeacherResponse;
-import com.TOTeams.TeacherHub.repositories.TeacherSubjectRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -45,9 +47,9 @@ public class TeacherService {
     }
 
 
-    public List<TeacherResponse> getAllTeachers() {
+    public Page<TeacherResponse> getAllTeachers(Pageable pageable) {
         List<TeacherResponse> teachers = new ArrayList<>();
-        for(Teacher t : teacherRepository.findAll()) {
+        for(Teacher t : teacherRepository.findAll(pageable).getContent()) {
             teachers.add(TeacherResponse
                 .builder()
                 .id(t.getId())
@@ -55,7 +57,7 @@ public class TeacherService {
                 .subjects(t.getSubjects())
                 .build());
         }
-        return teachers;
+        return new PageImpl<>(teachers, pageable, teachers.size());
     }
 
     public boolean deleteTeacher(String id) {

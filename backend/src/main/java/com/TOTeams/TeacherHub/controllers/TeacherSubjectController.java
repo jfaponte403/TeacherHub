@@ -5,13 +5,11 @@ import com.TOTeams.TeacherHub.models.requests.TeacherSubjectRequest;
 import com.TOTeams.TeacherHub.services.TeacherSubjectService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("teacherhub/api/teacherSubject")
@@ -21,6 +19,21 @@ public class TeacherSubjectController {
 
   @Autowired
   private final TeacherSubjectService teacherSubjectService;
+
+  @GetMapping("/{teacherSubjectId}")
+  public ResponseEntity<Object> getTeacherSubjectsByTeacherId(
+      @PathVariable String teacherSubjectId,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size
+  ) {
+    return
+      ResponseEntity.ok(
+        teacherSubjectService
+          .getTeacherSubjectsByTeacherId(
+            teacherSubjectId,
+            PageRequest.of(page, size)
+          ).getContent());
+  }
 
   @PreAuthorize("hasRole('ADMIN')")
   @PostMapping

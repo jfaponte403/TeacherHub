@@ -5,16 +5,15 @@ import com.TOTeams.TeacherHub.models.TeacherSubject;
 import com.TOTeams.TeacherHub.models.User;
 import com.TOTeams.TeacherHub.models.requests.GradeRequest;
 import com.TOTeams.TeacherHub.services.GradeService;
+import com.TOTeams.TeacherHub.services.TeacherSubjectService;
 import com.TOTeams.TeacherHub.util.ResponseHandler;
 import lombok.AllArgsConstructor;
-import org.hibernate.TransientPropertyValueException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
@@ -25,16 +24,26 @@ import java.util.stream.Stream;
 public class GradeController {
 
   private final GradeService gradeService;
+  private final TeacherSubjectService teacherSubjectService;
 
   @GetMapping
-  public ResponseEntity<Object> getGrades() {
-    return ResponseEntity.ok(gradeService.getGrades());
+  public ResponseEntity<Object> getGrades(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size
+  ) {
+    return ResponseEntity.ok(gradeService.getGrades(PageRequest.of(page, size)).getContent());
   }
 
-  @GetMapping("/{idTeacherSubject}")
-  public ResponseEntity<Object> getGradesByIdTeacherSubject(@PathVariable String idTeacherSubject) {
+  @GetMapping("/{idTeacher}/{idSubject}")
+  public ResponseEntity<Object> getGradesByIdTeacherAndSubject(
+      @PathVariable String idTeacher,
+      @PathVariable String idSubject,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size
+  ) {
     try {
-      return ResponseEntity.ok(gradeService.getGradesByIdTeacherSubject(idTeacherSubject));
+      String idTeacherSubject = teacherSubjectService.getTeacherSubjectByTeacherAndSubject(idTeacher, idSubject).getId();
+      return ResponseEntity.ok(gradeService.getGradesByIdTeacherSubject(idTeacherSubject, PageRequest.of(page, size)).getContent());
     } catch (NoSuchElementException e) {
       return
         ResponseHandler
