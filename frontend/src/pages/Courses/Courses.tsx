@@ -3,7 +3,7 @@ import Course from "../../components/Course/CardCourse.tsx";
 import { Course as ObjectCourse } from "../../interfaces/course.ts";
 import { useState, useEffect } from "react";
 import { axiosInstance, getData } from "../../api";
-import {generarPDF} from "../Pdf-Generator/Pdfgeneratorcourses.ts";
+import {generarPDF} from "../Pdf-Generator/Pdfgenerator.ts";
 
 const Courses = () => {
     const [courses, setCourses] = useState<[ObjectCourse] | []>([]);
@@ -19,7 +19,6 @@ const Courses = () => {
                     'Access-Control-Allow-Origin': '*',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
-    
             ).then(({ data }) => {
                 setCourses(data as [ObjectCourse]);
             }).catch((error) => {
@@ -31,7 +30,7 @@ const Courses = () => {
     }, [setCourses]);
 
     const funcion = () => {
-        generarPDF(courses, "Lista de cursos");
+        generarPDF(courses, "Lista de cursos", 'name');
     };
 
     return (

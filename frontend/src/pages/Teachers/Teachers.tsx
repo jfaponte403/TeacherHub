@@ -33,7 +33,7 @@ const Teachers = () => {
     }, [setTeachers]);
 
     const funcion = () => {
-        generarPDF(teachers, "Lista de profesores");
+        generarPDF(teachers, "Lista de profesores", 'name');
     };
 
 
