@@ -33,7 +33,7 @@ const TeacherCourses = () => {
                                             <CardTeacherCourse 
                                                 key={course.id}
                                                 course={course}
-                                                teacher={teacher.name}
+                                                teacher={teacher}
                                             />
                                     ) 
                                 : "Don't have courses"}
