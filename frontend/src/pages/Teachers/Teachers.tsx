@@ -38,7 +38,7 @@ const Teachers = () => {
 
     return (
         <>
-            <NavbarLogged teacher={true} courses={false} profile={false} pdf={false} />
+            <NavbarLogged teacher={true} courses={false} profile={false}/>
             <div className="container d-flex align-items-center flex-column">
                 <div className="container-search mt-4">
                     <div className="input-group">
