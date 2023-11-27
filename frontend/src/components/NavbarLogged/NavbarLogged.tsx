@@ -4,7 +4,7 @@ import logo from '../../assets/logo_nobg.png';
 import lightLogo from '../../assets/lightlogo.png'
 import { setTheme, isDarkTheme } from '../../helpers/themeHelper';
 
-const NavbarLogged = ({ teacher, profile, courses}: { courses: boolean, teacher: boolean, profile: boolean, pdf: boolean }) => {
+const NavbarLogged = ({ teacher, profile, courses}: { courses: boolean, teacher: boolean, profile: boolean }) => {
     const [isDark, setIsDark] = useState<boolean>(isDarkTheme());
 
     const handleButtonClick = () => {
