@@ -25,17 +25,17 @@ const TeacherCourses = () => {
                     </div>
                     <div className="col-md-8">
                         <div className="user-options courses-list d-flex flex-column my-3 overflow-auto" style={{maxHeight: '600px'}}>
-                            {teacher.subjects?.length > 0 
+                            {teacher.subjects?.length > 0
                                 ? teacher
                                     .subjects
                                     .map(
-                                        (course: ObjectCourse) => 
-                                            <CardTeacherCourse 
-                                                key={course.id} 
+                                        (course: ObjectCourse) =>
+                                            <CardTeacherCourse
+                                                key={course.id}
                                                 course={course}
                                                 teacher={teacher}
                                             />
-                                    ) 
+                                    )
                                 : "Don't have courses"}
                         </div>
                     </div>

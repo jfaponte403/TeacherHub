@@ -3,6 +3,7 @@ import Course from "../../components/Course/CardCourse.tsx";
 import { Course as ObjectCourse } from "../../interfaces/course.ts";
 import { useState, useEffect } from "react";
 import { axiosInstance, getData } from "../../api";
+import {generarPDF} from "../Pdf-Generator/Pdfgeneratorcourses.ts";
 
 const Courses = () => {
     const [courses, setCourses] = useState<[ObjectCourse] | []>([]);
@@ -27,11 +28,15 @@ const Courses = () => {
         };
 
         fetchCourses();
-    }, [setCourses]); 
+    }, [setCourses]);
+
+    const funcion = () => {
+        generarPDF(courses, "Lista de cursos");
+    };
 
     return (
         <>
-            <NavbarLogged teacher={false} courses={true} profile={false} />
+            <NavbarLogged teacher={false} courses={true} profile={false}/>
             <div className="container d-flex align-items-center flex-column">
                 <div className="container-search mt-4">
                     <div className="input-group">
@@ -41,7 +46,11 @@ const Courses = () => {
                         </div>
                     </div>
                 </div>
+                <div className="input-group-append">
+                    <button className="btn-orange btn" type="button" onClick={funcion}>PDF</button>
+                </div>
                 <div className="courses-list d-flex flex-column my-3 overflow-auto">
+
                     {courses.length > 0 
                         ? courses.map(course => <Course key={course.id} course={course}/>) 
                         : "Loading courses..."}
